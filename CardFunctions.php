@@ -2,9 +2,11 @@
 
 class CardFunctions
 {
-      public $cardsInfo =array();
-    public function hey(){
-        echo "hey";
+    public $cardsInfo =array();
+
+
+    function __construct(){
+       $this->refreshData();
     }
     public function refreshData()
     {
@@ -44,7 +46,6 @@ class CardFunctions
     }
 
     public function getTable(){
-        $this->refreshData();
         $table= "<table border=\"3\">
         <tr>
         <th>Name</th>

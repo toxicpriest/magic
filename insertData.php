@@ -1,3 +1,4 @@
 <?php
-echo "test";
+$cards =$_Post['cards'];
+print_r($cards);
 ?>
