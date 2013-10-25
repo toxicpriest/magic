@@ -84,6 +84,10 @@ class CardFunctions
         return $table;
     }
 
+    function addNewPrices(){
+      echo "nice";
+    }
+
     public function render(){
         echo $this->getTable();
     }
