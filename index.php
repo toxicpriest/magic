@@ -5,6 +5,7 @@
 include_once "KartenController.php";
 include_once "includes/header.php";
 
+echo "Supergay";
 $cardFunction = new CardFunctions();
 ?>
 <script>
