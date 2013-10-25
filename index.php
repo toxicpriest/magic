@@ -2,7 +2,7 @@
 
 <?php
 
-include_once "KartenController.php";
+include_once "CardFunctions.php";
 include_once "includes/header.php";
 
 echo "Supergay";

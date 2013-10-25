@@ -1,3 +1,3 @@
 <?php
-include_once "KartenController.php";
+include_once "CardFunctions.php";
 ?>
