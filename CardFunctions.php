@@ -19,9 +19,9 @@ class CardFunctions
 
         $showStatement = "SELECT * FROM card;";
         $result = mysql_query($showStatement, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
-        $i=0;
         while($row = mysql_fetch_object($result)){
-
+            $i=$row->id;
+            $this->cardsInfo[$i]["id"]=$row->id;
             $this->cardsInfo[$i]["Name"]=$row->name;
             $this->cardsInfo[$i]["Edition"]=$row->edition;
             $this->cardsInfo[$i]["OldMinmalPrice"]=$row->pricelowest;
@@ -33,15 +33,14 @@ class CardFunctions
             $pricePregmatch="/[0-9]*.,[0-9]*./";
             preg_match_all($pricePregmatch,$strippedCodeMKM,$price);
 
-            $this->cardsInfo[$i]["MinmalPrice"]=$price[0][0];
-            $this->cardsInfo[$i]["AveragePrice"]=$price[0][1];
-            $this->cardsInfo[$i]["FoilPrice"]=$price[0][2];
+            $this->cardsInfo[$i]["MinmalPrice"]=str_replace(",",".",$price[0][0]);
+            $this->cardsInfo[$i]["AveragePrice"]=str_replace(",",".",$price[0][1]);
+            $this->cardsInfo[$i]["FoilPrice"]=str_replace(",",".",$price[0][2]);
             $urlMCI="http://magiccards.info/query?q=".str_replace(" ","+",$row->name)."&v=card&s=cname";
             $quellcodeMCI = file ($urlMCI);
             $this->cardsInfo[$i]["BildLink"]="<a href=".$row->urlmkm.">".$quellcodeMCI[142]." width='60px'></a>";
             $this->cardsInfo[$i]["LegalLegacy"]=$quellcodeMCI[170];
             $this->cardsInfo[$i]["LegalModern"]=$quellcodeMCI[183];
-            $i++;
         }
     }
 
@@ -85,7 +84,17 @@ class CardFunctions
     }
 
     function addNewPrices(){
-      echo "nice";
+        $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
+                mysql_select_db("mtg_preise", $con) or die("Konnte die Datenbank nicht selecten!");
+
+        foreach($this->cardsInfo as $cards){
+            $addStatement = "Update card set pricelowest='".$cards["MinmalPrice"]."', priceaverage='".$cards["AveragePrice"]."', pricefoil='".$cards["FoilPrice"]."' where id = ".$cards["id"].";";
+            $result = mysql_query($addStatement, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
+            $this->cardsInfo[$cards["id"]]["OldMinmalPrice"]=$cards["MinmalPrice"];
+            $this->cardsInfo[$cards["id"]]["OldAveragePrice"]=$cards["AveragePrice"];
+            $this->cardsInfo[$cards["id"]]["OldFoilPrice"]=$cards["FoilPrice"];
+        }
+        $this->render();
     }
 
     public function render(){
