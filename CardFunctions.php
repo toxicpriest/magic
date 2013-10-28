@@ -10,7 +10,7 @@ class CardFunctions
     public function refreshData()
     {
         ini_set("allow_url_fopen",true);
-        ini_set("user_agent","Price_Reader");
+        ini_set("user_agent","user_agent','MSIE 4\.0b2;");
 
 
         $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
@@ -37,7 +37,9 @@ class CardFunctions
             $this->cardsInfo[$i]["AveragePrice"]=str_replace(",",".",$price[0][1]);
             $this->cardsInfo[$i]["FoilPrice"]=str_replace(",",".",$price[0][2]);
             $this->cardsInfo[$i]["BildLink"]="<a href=".$row->urlmkm."><img src='https://www.magickartenmarkt.de".$pic[1]."' width='60px'></a>";
-
+            $picPath="https://www.magickartenmarkt.de".$pic[1];
+            $picSavePath="./pictures/".str_replace(" ","_",$row->cardname."_".$row->edition.".jpg");
+            file_put_contents($picSavePath, file_get_contents($picPath));
         }
     }
 
@@ -74,7 +76,7 @@ class CardFunctions
             <td>".$cardInfo["FoilPrice"]."</td>
             <td>Rattenpreis</td>
             <td>".$cardInfo["BildLink"]."</td>
-            <td><img src=\"./src/img/del.png\" onclick=\"removeCard(".$cardInfo["id"].")\" width=\"50\" height=\"50\"></img></td>
+            <td><img src=\"./src/img/del.png\" onclick=\"removeCard(".$cardInfo["id"].")\" class='removeCard'></img></td>
             </tr>";
         }
         $table .="</table>";

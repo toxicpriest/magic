@@ -12,8 +12,9 @@ body{
     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE8 in Standard Compliant Mode */
     filter:alpha(opacity=50); /* IE5.x -7.0 */
 }
-#cardTable{
-
+#cardTable {
+    margin: 0 auto;
+    width: 80%;
 }
 
 tr.row_1{
@@ -21,4 +22,16 @@ tr.row_1{
 }
 tr.row_0{
     background: #FFF;
+}
+#cardTable td{
+    text-align: center;
+}
+div#content {
+    margin: 0 auto;
+    width: 80%;
+}
+img.removeCard{
+    width:20px;
+    height:20px;
+    cursor: pointer;
 }

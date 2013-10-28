@@ -47,14 +47,17 @@ $cardFunction = new CardFunctions();
         $("#loadScreen").css("height","0px");
         $("#loadScreen").css("z-index","0");
     }
+
 </script>
 <div id="loadScreen"></div>
-<div id="renderTable"><?php $cardFunction->render(); ?></div>
-<button class="addButton" onclick="addData()">Werte Übertragen</button>
-<button class="addButton" onclick="refreshData()">REFRESH</button>
+<div id="content">
+    <div id="renderTable"><?php $cardFunction->render(); ?></div>
+    <button class="addButton" onclick="addData()">Werte Übertragen</button>
+    <button class="addButton" onclick="refreshData()">REFRESH</button>
 
-<label for="newURL">
-    Neuen Link hinzufügen:
-</label>
-<input type="text" id="newURL">
-<button onclick="addCard()">Hinzufügen</button>
+    <label for="newURL">
+        Neuen Link hinzufügen:
+    </label>
+    <input type="text" id="newURL">
+    <button onclick="addCard()">Hinzufügen</button>
+</div>
