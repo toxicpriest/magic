@@ -22,7 +22,7 @@ class CardFunctions
         while($row = mysql_fetch_object($result)){
             $i=$row->id;
             $this->cardsInfo[$i]["id"]=$row->id;
-            $this->cardsInfo[$i]["Name"]=$row->name;
+            $this->cardsInfo[$i]["Name"]=$row->cardname;
             $this->cardsInfo[$i]["Edition"]=$row->edition;
             $this->cardsInfo[$i]["OldMinmalPrice"]=$row->pricelowest;
             $this->cardsInfo[$i]["OldAveragePrice"]=$row->priceaverage;
@@ -36,7 +36,7 @@ class CardFunctions
             $this->cardsInfo[$i]["MinmalPrice"]=str_replace(",",".",$price[0][0]);
             $this->cardsInfo[$i]["AveragePrice"]=str_replace(",",".",$price[0][1]);
             $this->cardsInfo[$i]["FoilPrice"]=str_replace(",",".",$price[0][2]);
-            $urlMCI="http://magiccards.info/query?q=".str_replace(" ","+",$row->name)."&v=card&s=cname";
+            $urlMCI="http://magiccards.info/query?q=".str_replace(" ","+",$row->cardname)."&v=card&s=cname";
             $quellcodeMCI = file ($urlMCI);
             $this->cardsInfo[$i]["BildLink"]="<a href=".$row->urlmkm.">".$quellcodeMCI[142]." width='60px'></a>";
             $this->cardsInfo[$i]["LegalLegacy"]=$quellcodeMCI[170];
@@ -97,14 +97,13 @@ class CardFunctions
         $this->render();
     }
 
-    function addNewURL(){
+    function addNewURL($urlmkm){
         ini_set("allow_url_fopen",true);
         ini_set("user_agent","Price_Reader");
 
         $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
                 mysql_select_db("mtg_preise", $con) or die("Konnte die Datenbank nicht selecten!");
 
-        $urlmkm = $_POST['newURL'];
         $quellcodeMKM = file ($urlmkm);
 
         //Getting the cards name
@@ -124,8 +123,8 @@ class CardFunctions
         $minimalPrice=str_replace(",",".",$price[0][0]);
         $averagePrice=str_replace(",",".",$price[0][1]);
         $foilPrice=str_replace(",",".",$price[0][2]);
-
-        $sql = "INSERT INTO card('urlmkm', 'urltrader', 'edition', 'name', 'pricelowest', 'priceaverage', 'pricefoil', 'pricetrader') VALUES('$urlmkm', '', '$edition', '$name', '$minimalPrice', '$averagePrice', '$foilPrice', '');";
+//        $sql = "INSERT INTO users(username, password) VALUES (\"$name\", \"$password\");";
+        $sql = "INSERT INTO card(urlmkm, urltrader, edition, cardname, pricelowest, priceaverage, pricefoil, pricetrader) VALUES(\"$urlmkm\", \"\", \"$edition\", \"$name\", \"$minimalPrice\", \"$averagePrice\", \"$foilPrice\", \"\");";
 
         mysql_query($sql, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
     }

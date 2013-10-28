@@ -17,7 +17,8 @@ $cardFunction = new CardFunctions();
     }
     function addCard(){
         showLoadScreen();
-        $.ajax({url:"cardsHandler.php?fn=addNewURL",type:"POST",success:function(result){
+        var url = document.getElementById("newURL").value;
+        $.ajax({url:"cardsHandler.php?fn=addNewURL&param=" + url,type:"POST",success:function(result){
             $("#renderTable").html(result);
             hideLoadScreen();
         }});
@@ -45,10 +46,8 @@ $cardFunction = new CardFunctions();
 <button class="addButton" onclick="addData()">Werte Übertragen</button>
 <button class="addButton" onclick="refreshData()">REFRESH</button>
 
-<form method="post">
-    <label for="newURL">
-        Neuen Link hinzufügen:
-    </label>
-    <input type="text" id="newURL">
-    <input type="submit" value="Hinzufügen" onclick="addCard()">
-</form>
+<label for="newURL">
+    Neuen Link hinzufügen:
+</label>
+<input type="text" id="newURL">
+<button onclick="addCard()">Hinzufügen</button>
