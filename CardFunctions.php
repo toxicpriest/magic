@@ -43,16 +43,16 @@ class CardFunctions
     public function getTable(){
         $table= "<table id='cardTable' border='3'>
         <tr>
-        <th>Name</th>
+        <th width='200px'>Name</th>
         <th>Edition</th>
-        <th>Alter Minimalpreis</th>
-        <th>Alter Durchschnittspreis</th>
-        <th>Alter Preis für Foils</th>
+        <th>Alter Min.Preis</th>
+        <th>Alter Ø-Preis</th>
+        <th>Alter Foil-Preis</th>
         <th>Alter Preis Trader</th>
-        <th>Aktueller Minimalpreis</th>
-        <th>Aktueller Durchschnittspreis</th>
-        <th>Aktueller Preis für Foils</th>
-        <th>Aktueller Trader Preis</th>
+        <th>Min.Preis</th>
+        <th>Ø-Preis</th>
+        <th>Foil-Preis</th>
+        <th>Trader Preis</th>
         <th>Abbildung</th>
         <th>Löschen</th>
         </tr>";
