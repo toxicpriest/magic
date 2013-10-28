@@ -6,7 +6,6 @@ class CardFunctions
 
 
     function __construct(){
-       $this->refreshData();
     }
     public function refreshData()
     {
@@ -22,7 +21,7 @@ class CardFunctions
         while($row = mysql_fetch_object($result)){
             $i=$row->id;
             $this->cardsInfo[$i]["id"]=$row->id;
-            $this->cardsInfo[$i]["Name"]=$row->name;
+            $this->cardsInfo[$i]["Name"]=$row->cardname;
             $this->cardsInfo[$i]["Edition"]=$row->edition;
             $this->cardsInfo[$i]["OldMinmalPrice"]=$row->pricelowest;
             $this->cardsInfo[$i]["OldAveragePrice"]=$row->priceaverage;
@@ -43,7 +42,7 @@ class CardFunctions
     }
 
     public function getTable(){
-        $table= "<table id='cardTable'>
+        $table= "<table id='cardTable' border='3'>
         <tr>
         <th>Name</th>
         <th>Edition</th>
@@ -56,9 +55,11 @@ class CardFunctions
         <th>Aktueller Preis für Foils</th>
         <th>Aktueller Trader Preis</th>
         <th>Abbildung</th>
+        <th>Löschen</th>
         </tr>";
         $iTable=0;
         foreach($this->cardsInfo as $cardInfo){
+
             $iTable++;
             $table .="<tr class='row_".($iTable%2)."'>
             <td>".$cardInfo["Name"]."</td>
@@ -73,6 +74,7 @@ class CardFunctions
             <td>".$cardInfo["FoilPrice"]."</td>
             <td>Rattenpreis</td>
             <td>".$cardInfo["BildLink"]."</td>
+            <td><img src=\"./src/img/del.png\" onclick=\"removeCard(".$cardInfo["id"].")\" width=\"50\" height=\"50\"></img></td>
             </tr>";
         }
         $table .="</table>";
@@ -93,7 +95,50 @@ class CardFunctions
         $this->render();
     }
 
+    function addNewURL($urlmkm){
+        ini_set("allow_url_fopen",true);
+        ini_set("user_agent","Price_Reader");
+
+        $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
+                mysql_select_db("mtg_preise", $con) or die("Konnte die Datenbank nicht selecten!");
+
+        $quellcodeMKM = file ($urlmkm);
+
+        //Getting the cards name
+        $patternName = "/<title>(.*?)\(/";
+        preg_match($patternName, $quellcodeMKM[4], $nameArr);
+        $name = $nameArr[1];
+
+        //Getting the cards edition
+        $patternEdition ="/<title>.*\((.*)\)/";
+        preg_match($patternEdition, $quellcodeMKM[4], $editionArr);
+        $edition = $editionArr[1];
+
+        //Getting the mkm prices
+        $strippedCodeMKM=(strip_tags($quellcodeMKM[46]));
+        $pricePregmatch="/[0-9]*.,[0-9]*./";
+        preg_match_all($pricePregmatch,$strippedCodeMKM,$price);
+        $minimalPrice=str_replace(",",".",$price[0][0]);
+        $averagePrice=str_replace(",",".",$price[0][1]);
+        $foilPrice=str_replace(",",".",$price[0][2]);
+        $sql = "INSERT INTO card(urlmkm, urltrader, edition, cardname, pricelowest, priceaverage, pricefoil, pricetrader) VALUES(\"$urlmkm\", \"\", \"$edition\", \"$name\", \"$minimalPrice\", \"$averagePrice\", \"$foilPrice\", \"\");";
+
+        mysql_query($sql, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
+
+        $this->render();
+    }
+
+    function deleteCard($id){
+        $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
+        mysql_select_db("mtg_preise", $con) or die("Konnte die Datenbank nicht selecten!");
+
+        $sql = "DELETE FROM card WHERE id=\"$id\";";
+        mysql_query($sql, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
+        $this->render();
+    }
+
     public function render(){
+        $this->refreshData();
         echo $this->getTable();
     }
 }

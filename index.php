@@ -23,6 +23,13 @@ $cardFunction = new CardFunctions();
             hideLoadScreen();
         }});
     }
+    function removeCard(id){
+        showLoadScreen();
+        $.ajax({url:"cardsHandler.php?fn=deleteCard&param=" + id,type:"POST",success:function(result){
+            $("#renderTable").html(result);
+            hideLoadScreen();
+        }});
+    }
     function refreshData(){
       showLoadScreen();
       $.ajax({url:"cardsHandler.php?fn=render",type:"POST",success:function(result){
