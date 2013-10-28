@@ -97,6 +97,39 @@ class CardFunctions
         $this->render();
     }
 
+    function addNewURL(){
+        ini_set("allow_url_fopen",true);
+        ini_set("user_agent","Price_Reader");
+
+        $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
+                mysql_select_db("mtg_preise", $con) or die("Konnte die Datenbank nicht selecten!");
+
+        $urlmkm = $_POST['newURL'];
+        $quellcodeMKM = file ($urlmkm);
+
+        //Getting the cards name
+        $patternName = "/<title>(.*?)\(/";
+        preg_match($patternName, $quellcodeMKM[4], $nameArr);
+        $name = $nameArr[1];
+
+        //Getting the cards edition
+        $patternEdition ="/<title>.*\((.*)\)/";
+        preg_match($patternEdition, $quellcodeMKM[4], $editionArr);
+        $edition = $editionArr[1];
+
+        //Getting the mkm prices
+        $strippedCodeMKM=(strip_tags($quellcodeMKM[46]));
+        $pricePregmatch="/[0-9]*.,[0-9]*./";
+        preg_match_all($pricePregmatch,$strippedCodeMKM,$price);
+        $minimalPrice=str_replace(",",".",$price[0][0]);
+        $averagePrice=str_replace(",",".",$price[0][1]);
+        $foilPrice=str_replace(",",".",$price[0][2]);
+
+        $sql = "INSERT INTO card('urlmkm', 'urltrader', 'edition', 'name', 'pricelowest', 'priceaverage', 'pricefoil', 'pricetrader') VALUES('$urlmkm', '', '$edition', '$name', '$minimalPrice', '$averagePrice', '$foilPrice', '');";
+
+        mysql_query($sql, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
+    }
+
     public function render(){
         echo $this->getTable();
     }
