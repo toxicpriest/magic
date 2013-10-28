@@ -26,15 +26,19 @@ class CardFunctions
             $this->cardsInfo[$i]["OldMinmalPrice"]=$row->pricelowest;
             $this->cardsInfo[$i]["OldAveragePrice"]=$row->priceaverage;
             $this->cardsInfo[$i]["OldFoilPrice"]=$row->pricefoil;
-            $this->cardsInfo[$i]["OldTraderPrice"]=$row->pricetrader;
             $quellcodeMKM = file ($row->urlmkm);
             $strippedCodeMKM=(strip_tags($quellcodeMKM[46]));
             $pricePregmatch="/[0-9]*.,[0-9]*./";
             preg_match_all($pricePregmatch,$strippedCodeMKM,$price);
 
-            $this->cardsInfo[$i]["MinmalPrice"]=str_replace(",",".",$price[0][0]);
-            $this->cardsInfo[$i]["AveragePrice"]=str_replace(",",".",$price[0][1]);
-            $this->cardsInfo[$i]["FoilPrice"]=str_replace(",",".",$price[0][2]);
+            $this->cardsInfo[$i]["MinmalPrice"]=trim(str_replace(",",".",$price[0][0]));
+            $this->cardsInfo[$i]["AveragePrice"]=trim(str_replace(",",".",$price[0][1]));
+            if(isset($price[0][2])){
+                $this->cardsInfo[$i]["FoilPrice"]=trim(str_replace(",",".",$price[0][2]));
+            }
+            else{
+                $this->cardsInfo[$i]["FoilPrice"]=0;
+            }
             $this->cardsInfo[$i]["BildLink"]="<a href=".$row->urlmkm."><img src='".str_replace(" ","_","./pictures/".$row->cardname."_".$row->edition.".jpg")."' width='60px'></a>";
 
         }
@@ -48,32 +52,37 @@ class CardFunctions
         <th>Alter Min.Preis</th>
         <th>Alter Ø-Preis</th>
         <th>Alter Foil-Preis</th>
-        <th>Alter Preis Trader</th>
         <th>Min.Preis</th>
         <th>Ø-Preis</th>
         <th>Foil-Preis</th>
-        <th>Trader Preis</th>
         <th>Abbildung</th>
         <th>Löschen</th>
+        <th>info</th>
         </tr>";
         $iTable=0;
         foreach($this->cardsInfo as $cardInfo){
-
+            if($cardInfo["OldMinmalPrice"] >$cardInfo["MinmalPrice"]){
+                $info="<span class='tdinfo_lower'>!</span>";
+            }
+            elseif($cardInfo["OldMinmalPrice"] < $cardInfo["MinmalPrice"]){
+                $info="<span class='tdinfo_higher'>!</span>";
+            }
+            elseif($cardInfo["OldMinmalPrice"] == $cardInfo["MinmalPrice"]){
+                $info="<span class='tdinfo_equal'>=</span>";
+            }
             $iTable++;
             $table .="<tr class='row_".($iTable%2)."'>
             <td>".$cardInfo["Name"]."</td>
             <td>".$cardInfo["Edition"]."</td>
-            <td>".$cardInfo["OldMinmalPrice"]."</td>
-            <td>".$cardInfo["OldAveragePrice"]."</td>
-            <td>".$cardInfo["OldFoilPrice"]."</td>
-            <td>".$cardInfo["OldTraderPrice"]."</td>
-
-            <td>".$cardInfo["MinmalPrice"]."</td>
-            <td>".$cardInfo["AveragePrice"]."</td>
-            <td>".$cardInfo["FoilPrice"]."</td>
-            <td>Rattenpreis</td>
+            <td>".$cardInfo["OldMinmalPrice"]." €</td>
+            <td>".$cardInfo["OldAveragePrice"]." €</td>
+            <td>".$cardInfo["OldFoilPrice"]." €</td>
+            <td>".$cardInfo["MinmalPrice"]." €</td>
+            <td>".$cardInfo["AveragePrice"]." €</td>
+            <td>".$cardInfo["FoilPrice"]." €</td>
             <td>".$cardInfo["BildLink"]."</td>
             <td><img src=\"./src/img/del.png\" onclick=\"removeCard(".$cardInfo["id"].")\" class='removeCard'></img></td>
+            <td>".$info."</td>
             </tr>";
         }
         $table .="</table>";
@@ -119,8 +128,13 @@ class CardFunctions
         preg_match_all($pricePregmatch,$strippedCodeMKM,$price);
         $minimalPrice=str_replace(",",".",$price[0][0]);
         $averagePrice=str_replace(",",".",$price[0][1]);
-        $foilPrice=str_replace(",",".",$price[0][2]);
-        $sql = "INSERT INTO card(urlmkm, urltrader, edition, cardname, pricelowest, priceaverage, pricefoil, pricetrader) VALUES(\"$urlmkm\", \"\", \"$edition\", \"$name\", \"$minimalPrice\", \"$averagePrice\", \"$foilPrice\", \"\");";
+        if(isset($price[0][2])){
+            $foilPrice=str_replace(",",".",$price[0][2]);
+        }
+        else{
+            $foilPrice=0;
+        }
+        $sql = "INSERT INTO card(urlmkm, edition, cardname, pricelowest, priceaverage, pricefoil) VALUES(\"$urlmkm\", \"$edition\", \"$name\", \"$minimalPrice\", \"$averagePrice\", \"$foilPrice\");";
 
         $picPregmatch='/<span class="prodImage"><img src=".(.*)" alt=".*<span class="prodDetails">/';
         preg_match($picPregmatch, $quellcodeMKM[46], $pic);

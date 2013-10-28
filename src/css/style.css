@@ -34,3 +34,15 @@ img.removeCard{
     height:20px;
     cursor: pointer;
 }
+span.tdinfo_equal {
+    color: #333333;
+    font-size: 60px;
+}
+span.tdinfo_higher {
+    color: #BB0000;
+    font-size: 60px;
+}
+span.tdinfo_lower {
+    color: #00BB00;
+    font-size: 60px;
+}
