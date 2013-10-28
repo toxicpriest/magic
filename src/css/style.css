@@ -1,0 +1,14 @@
+body{
+    padding: 0px;
+    margin: 0px;
+}
+#loadScreen{
+    height:0px;
+    width:0px;
+    position:absolute;
+    background: url("../img/bg.png") ;
+    opacity: 0.5;       /* modern browser */
+    -moz-opacity: 0.5;  /* older Mozilla browser */
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE8 in Standard Compliant Mode */
+    filter:alpha(opacity=50); /* IE5.x -7.0 */
+}
