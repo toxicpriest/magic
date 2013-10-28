@@ -12,3 +12,13 @@ body{
     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE8 in Standard Compliant Mode */
     filter:alpha(opacity=50); /* IE5.x -7.0 */
 }
+#cardTable{
+
+}
+
+tr.row_1{
+    background: #999;
+}
+tr.row_0{
+    background: #FFF;
+}
