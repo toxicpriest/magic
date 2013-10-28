@@ -47,7 +47,6 @@ $cardFunction = new CardFunctions();
         $("#loadScreen").css("height","0px");
         $("#loadScreen").css("z-index","0");
     }
-
 </script>
 <div id="loadScreen"></div>
 <div id="content">

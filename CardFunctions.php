@@ -31,15 +31,12 @@ class CardFunctions
             $strippedCodeMKM=(strip_tags($quellcodeMKM[46]));
             $pricePregmatch="/[0-9]*.,[0-9]*./";
             preg_match_all($pricePregmatch,$strippedCodeMKM,$price);
-            $picPregmatch='/<span class="prodImage"><img src=".(.*)" alt=".*<span class="prodDetails">/';
-            preg_match($picPregmatch, $quellcodeMKM[46], $pic);
+
             $this->cardsInfo[$i]["MinmalPrice"]=str_replace(",",".",$price[0][0]);
             $this->cardsInfo[$i]["AveragePrice"]=str_replace(",",".",$price[0][1]);
             $this->cardsInfo[$i]["FoilPrice"]=str_replace(",",".",$price[0][2]);
-            $this->cardsInfo[$i]["BildLink"]="<a href=".$row->urlmkm."><img src='https://www.magickartenmarkt.de".$pic[1]."' width='60px'></a>";
-            $picPath="https://www.magickartenmarkt.de".$pic[1];
-            $picSavePath="./pictures/".str_replace(" ","_",$row->cardname."_".$row->edition.".jpg");
-            file_put_contents($picSavePath, file_get_contents($picPath));
+            $this->cardsInfo[$i]["BildLink"]="<a href=".$row->urlmkm."><img src='".str_replace(" ","_","./pictures/".$row->cardname."_".$row->edition.".jpg")."' width='60px'></a>";
+
         }
     }
 
@@ -125,6 +122,11 @@ class CardFunctions
         $foilPrice=str_replace(",",".",$price[0][2]);
         $sql = "INSERT INTO card(urlmkm, urltrader, edition, cardname, pricelowest, priceaverage, pricefoil, pricetrader) VALUES(\"$urlmkm\", \"\", \"$edition\", \"$name\", \"$minimalPrice\", \"$averagePrice\", \"$foilPrice\", \"\");";
 
+        $picPregmatch='/<span class="prodImage"><img src=".(.*)" alt=".*<span class="prodDetails">/';
+        preg_match($picPregmatch, $quellcodeMKM[46], $pic);
+        $picPath="https://www.magickartenmarkt.de".$pic[1];
+        $picSavePath="./pictures/".str_replace(" ","_",$name."_".$edition.".jpg");
+        file_put_contents($picSavePath, file_get_contents($picPath));
         mysql_query($sql, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
 
         $this->render();
