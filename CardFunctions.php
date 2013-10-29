@@ -39,7 +39,17 @@ class CardFunctions
             else{
                 $this->cardsInfo[$i]["FoilPrice"]=0;
             }
-            $this->cardsInfo[$i]["BildLink"]="<a href=".$row->urlmkm."><img src='".str_replace(" ","_","./pictures/".$row->cardname."_".$row->edition.".jpg")."' width='60px'></a>";
+
+            for($n = 61; ; $n++){
+                preg_match("/showMsgBox\('Deutsch'\)/", $quellcodeMKM[$n], $matches);
+//                var_dump($matches);
+                if(!empty($matches)){
+                    preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n], $priceMatches);
+                    $this->cardsInfo[$i]["firstGerman"] = str_replace(",", ".", $priceMatches[0]);
+                    break;
+                }
+            }
+            $this->cardsInfo[$i]["BildLink"]="<a href=".$row->urlmkm."><img src='".str_replace(" ","_","./pictures/".str_replace("'", "´", $row->cardname)."_".$row->edition.".jpg")."' width='60px'></a>";
 
         }
     }
@@ -55,6 +65,7 @@ class CardFunctions
         <th>Min.Preis</th>
         <th>Ø-Preis</th>
         <th>Foil-Preis</th>
+        <th>1. Dt. Karte</th>
         <th>Abbildung</th>
         <th>Löschen</th>
         <th>info</th>
@@ -80,6 +91,7 @@ class CardFunctions
             <td>".$cardInfo["MinmalPrice"]." €</td>
             <td>".$cardInfo["AveragePrice"]." €</td>
             <td>".$cardInfo["FoilPrice"]." €</td>
+            <td>".$cardInfo["firstGerman"]." €</td>
             <td>".$cardInfo["BildLink"]."</td>
             <td><img src=\"./src/img/del.png\" onclick=\"removeCard(".$cardInfo["id"].")\" class='removeCard'></img></td>
             <td>".$info."</td>
@@ -112,42 +124,52 @@ class CardFunctions
         $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
                 mysql_select_db("mtg_preise", $con) or die("Konnte die Datenbank nicht selecten!");
 
-        $quellcodeMKM = file ($urlmkm);
+        //check if the card is already on the list
+        $checkSQL = "SELECT urlmkm FROM card where urlmkm = \"$urlmkm\";";
+        $checkResult = mysql_query($checkSQL, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
+        $resultURL = mysql_fetch_assoc($checkResult);
+        if(false == $resultURL){
 
-        //Getting the cards name
-        $patternName = "/<title>(.*?)\(/";
-        preg_match($patternName, $quellcodeMKM[4], $nameArr);
-        $name = $nameArr[1];
+            $quellcodeMKM = file ($urlmkm);
 
-        //Getting the cards edition
-        $patternEdition ="/<title>.*\((.*)\)/";
-        preg_match($patternEdition, $quellcodeMKM[4], $editionArr);
-        $edition = $editionArr[1];
+            //Getting the cards name
+            $patternName = "/<title>(.*?)\(/";
+            preg_match($patternName, $quellcodeMKM[4], $nameArr);
+            $name = $nameArr[1];
 
-        //Getting the mkm prices
-        $strippedCodeMKM=(strip_tags($quellcodeMKM[46]));
-        $pricePregmatch="/[0-9]*.,[0-9]*./";
-        preg_match_all($pricePregmatch,$strippedCodeMKM,$price);
-        $minimalPrice=str_replace(",",".",$price[0][0]);
-        $averagePrice=str_replace(",",".",$price[0][1]);
-        if(isset($price[0][2])){
-            $foilPrice=str_replace(",",".",$price[0][2]);
+            //Getting the cards edition
+            $patternEdition ="/<title>.*\((.*)\)/";
+            preg_match($patternEdition, $quellcodeMKM[4], $editionArr);
+            $edition = $editionArr[1];
+
+            //Getting the mkm prices
+            $strippedCodeMKM=(strip_tags($quellcodeMKM[46]));
+            $pricePregmatch="/[0-9]*.,[0-9]*./";
+            preg_match_all($pricePregmatch,$strippedCodeMKM,$price);
+            $minimalPrice=str_replace(",",".",$price[0][0]);
+            $averagePrice=str_replace(",",".",$price[0][1]);
+            if(isset($price[0][2])){
+              $foilPrice=str_replace(",",".",$price[0][2]);
+            }
+            else{
+                $foilPrice=0;
+            }
+            $sql = "INSERT INTO card(urlmkm, edition, cardname, pricelowest, priceaverage, pricefoil) VALUES(\"$urlmkm\", \"$edition\", \"$name\", \"$minimalPrice\", \"$averagePrice\", \"$foilPrice\");";
+
+            //Getting the picture
+            $picPregmatch='/<span class="prodImage"><img src=".(.*)" alt=".*<span class="prodDetails">/';
+            preg_match($picPregmatch, $quellcodeMKM[46], $pic);
+            $picPath="https://www.magickartenmarkt.de".$pic[1];
+            //Change blank spaces for "_" and change "'" in $name for "´"
+            $picSavePath="./pictures/".str_replace(" ","_",str_replace("'", "´", $name)."_".$edition.".jpg");
+            file_put_contents($picSavePath, file_get_contents($picPath));
+            mysql_query($sql, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
+
+            $this->render();
         }
         else{
-            $foilPrice=0;
+            echo "Diese Karte befindet sich bereits auf der Liste!";
         }
-        $sql = "INSERT INTO card(urlmkm, edition, cardname, pricelowest, priceaverage, pricefoil) VALUES(\"$urlmkm\", \"$edition\", \"$name\", \"$minimalPrice\", \"$averagePrice\", \"$foilPrice\");";
-
-        //Getting the picture
-        $picPregmatch='/<span class="prodImage"><img src=".(.*)" alt=".*<span class="prodDetails">/';
-        preg_match($picPregmatch, $quellcodeMKM[46], $pic);
-        $picPath="https://www.magickartenmarkt.de".$pic[1];
-        //Change blank spaces for "_" and change "'" in $name for "´"
-        $picSavePath="./pictures/".str_replace(" ","_",str_replace("'", "´", $name)."_".$edition.".jpg");
-        file_put_contents($picSavePath, file_get_contents($picPath));
-        mysql_query($sql, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
-
-        $this->render();
     }
 
     function deleteCard($id){

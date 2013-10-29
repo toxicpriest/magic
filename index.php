@@ -51,6 +51,7 @@ $cardFunction = new CardFunctions();
 </script>
 <div id="loadScreen"></div>
 <div id="content">
+    <div id="warning">Diese Karte ist bereits auf ihrer Liste!</div>
     <div id="renderTable"><?php $cardFunction->render(); ?></div>
     <button class="addButton" onclick="addData()">Werte Übertragen</button>
     <button class="addButton" onclick="refreshData()">REFRESH</button>
@@ -61,3 +62,18 @@ $cardFunction = new CardFunctions();
     <input type="text" id="newURL">
     <button onclick="addCard()">Hinzufügen</button>
 </div>
+
+<?php
+//
+//ini_set("allow_url_fopen",true);
+//ini_set("user_agent","user_agent','MSIE 4\.0b2;");
+//
+//$qc = file("https://www.magickartenmarkt.de/Deaths_Shadow_Worldwake.c1p22155.prod");
+//
+////foreach($qc as $q){
+////    echo $q;
+////}
+//
+//var_dump($qc);
+//
+//?>
