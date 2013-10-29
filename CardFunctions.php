@@ -40,7 +40,8 @@ class CardFunctions
                 $this->cardsInfo[$i]["FoilPrice"]=0;
             }
 
-            for($n = 61; ; $n++){
+            $this->cardsInfo[$i]["firstGerman"] = "/";
+            for($n = 61; $n < sizeof($quellcodeMKM) ; $n++){
                 preg_match("/showMsgBox\('Deutsch'\)/", $quellcodeMKM[$n], $matches);
 //                var_dump($matches);
                 if(!empty($matches)){
