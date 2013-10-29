@@ -91,6 +91,7 @@ class CardFunctions
     }
 
     function addNewPrices(){
+
         $this->refreshData();
         $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
                 mysql_select_db("mtg_preise", $con) or die("Konnte die Datenbank nicht selecten!");
