@@ -62,18 +62,3 @@ $cardFunction = new CardFunctions();
     <input type="text" id="newURL">
     <button onclick="addCard()">Hinzufügen</button>
 </div>
-
-<?php
-//
-//ini_set("allow_url_fopen",true);
-//ini_set("user_agent","user_agent','MSIE 4\.0b2;");
-//
-//$qc = file("https://www.magickartenmarkt.de/Deaths_Shadow_Worldwake.c1p22155.prod");
-//
-////foreach($qc as $q){
-////    echo $q;
-////}
-//
-//var_dump($qc);
-//
-//?>
