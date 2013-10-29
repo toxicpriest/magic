@@ -22,6 +22,7 @@ $cardFunction = new CardFunctions();
             $("#renderTable").html(result);
             hideLoadScreen();
         }});
+        document.getElementById("newURL").value = "";
     }
     function removeCard(id){
         showLoadScreen();

@@ -26,6 +26,7 @@ class CardFunctions
             $this->cardsInfo[$i]["OldMinmalPrice"]=$row->pricelowest;
             $this->cardsInfo[$i]["OldAveragePrice"]=$row->priceaverage;
             $this->cardsInfo[$i]["OldFoilPrice"]=$row->pricefoil;
+            $this->cardsInfo[$i]["OldTraderPrice"]=$row->pricetrader;
             $quellcodeMKM = file ($row->urlmkm);
             $strippedCodeMKM=(strip_tags($quellcodeMKM[46]));
             $pricePregmatch="/[0-9]*.,[0-9]*./";
@@ -90,6 +91,7 @@ class CardFunctions
     }
 
     function addNewPrices(){
+        $this->refreshData();
         $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
                 mysql_select_db("mtg_preise", $con) or die("Konnte die Datenbank nicht selecten!");
 
@@ -136,10 +138,12 @@ class CardFunctions
         }
         $sql = "INSERT INTO card(urlmkm, edition, cardname, pricelowest, priceaverage, pricefoil) VALUES(\"$urlmkm\", \"$edition\", \"$name\", \"$minimalPrice\", \"$averagePrice\", \"$foilPrice\");";
 
+        //Getting the picture
         $picPregmatch='/<span class="prodImage"><img src=".(.*)" alt=".*<span class="prodDetails">/';
         preg_match($picPregmatch, $quellcodeMKM[46], $pic);
         $picPath="https://www.magickartenmarkt.de".$pic[1];
-        $picSavePath="./pictures/".str_replace(" ","_",$name."_".$edition.".jpg");
+        //Change blank spaces for "_" and change "'" in $name for "´"
+        $picSavePath="./pictures/".str_replace(" ","_",str_replace("'", "´", $name)."_".$edition.".jpg");
         file_put_contents($picSavePath, file_get_contents($picPath));
         mysql_query($sql, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
 
