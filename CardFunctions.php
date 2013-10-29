@@ -28,9 +28,8 @@ class CardFunctions
             $this->cardsInfo[$i]["OldFoilPrice"]=$row->pricefoil;
             $quellcodeMKM = file ($row->urlmkm);
             $strippedCodeMKM=(strip_tags($quellcodeMKM[46]));
-            $pricePregmatch="/[0-9]*.,[0-9]*./";
+            $pricePregmatch="/[0-9]*.,[0-9]+./";
             preg_match_all($pricePregmatch,$strippedCodeMKM,$price);
-
             $this->cardsInfo[$i]["MinmalPrice"]=trim(str_replace(",",".",$price[0][0]));
             $this->cardsInfo[$i]["AveragePrice"]=trim(str_replace(",",".",$price[0][1]));
             if(isset($price[0][2])){
@@ -43,7 +42,6 @@ class CardFunctions
             $this->cardsInfo[$i]["firstGerman"] = "/";
             for($n = 61; $n < sizeof($quellcodeMKM) ; $n++){
                 preg_match("/showMsgBox\('Deutsch'\)/", $quellcodeMKM[$n], $matches);
-//                var_dump($matches);
                 if(!empty($matches)){
                     preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n], $priceMatches);
                     $this->cardsInfo[$i]["firstGerman"] = str_replace(",", ".", $priceMatches[0]);

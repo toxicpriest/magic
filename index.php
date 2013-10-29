@@ -71,15 +71,3 @@ $cardFunction = new CardFunctions();
     <input type="text" id="newURL">
     <button onclick="addCard()">Hinzufügen</button>
 </div>
-
-<?php
-//
-//ini_set("allow_url_fopen",true);
-//ini_set("user_agent","user_agent','MSIE 4\.0b2;");
-//
-//$qc = file("https://www.magickartenmarkt.de/Demonic_Tutor_Alpha.c1p5246.prod");
-//
-//var_dump($qc);
-//
-//
-//?>
