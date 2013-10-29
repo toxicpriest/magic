@@ -48,9 +48,11 @@ $cardFunction = new CardFunctions();
         $("#loadScreen").css("height","0px");
         $("#loadScreen").css("z-index","0");
     }
-    function hoverPic(pic){
+    function hoverPic(pic,event){
         $("#hoverDiv").css("background","url('"+pic+"') no-repeat scroll 0 0 / 100% auto");
         $("#hoverDiv").css("display","block");
+        $("#hoverDiv").css("margin-top",event.pageY-100);
+        $("#hoverDiv").css("margin-left",event.pageX-350);
     }
     function hidePic(){
         $("#hoverDiv").css("display","none");
