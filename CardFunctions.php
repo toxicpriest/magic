@@ -41,13 +41,27 @@ class CardFunctions
 
             $this->cardsInfo[$i]["firstGerman"] = "/";
             for($n = 61; $n < sizeof($quellcodeMKM) ; $n++){
-                preg_match("/showMsgBox\('Deutsch'\)/", $quellcodeMKM[$n], $matches);
+                preg_match("/Artikelstandort: Deutschland/", $quellcodeMKM[$n], $matches);
                 if(!empty($matches)){
-                    preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n], $priceMatches);
+                    preg_match("/Artikelstandort: Deutschland/", $quellcodeMKM[$n], $matches);
+
+                    preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatches);
                     $this->cardsInfo[$i]["firstGerman"] = str_replace(",", ".", $priceMatches[0]);
                     break;
                 }
             }
+            for($n = 61; $n < sizeof($quellcodeMKM) ; $n++){
+                           preg_match("/Artikelstandort: Deutschland/", $quellcodeMKM[$n], $matches);
+                           if(!empty($matches)){
+                               preg_match("/showMsgBox\('Near Mint'\)/", $quellcodeMKM[$n+1], $match);
+                               if(!empty($match)){
+                                   preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatch);
+                                   $this->cardsInfo[$i]["firstGermanNearMint"] = str_replace(",", ".", $priceMatch[0]);
+                                   break;
+                               }
+
+                           }
+                       }
             $this->cardsInfo[$i]["BildLink"]="<div class='hoverPictures'><a href=".$row->urlmkm."><img src='".str_replace(" ","_","./pictures/".str_replace("'", "´", $row->cardname)."_".$row->edition.".jpg")."' width='60px' onMouseLeave=\"hidePic()\" onMouseOver=\"hoverPic('".str_replace(" ","_","./pictures/".str_replace("'", "´", $row->cardname)."_".$row->edition.".jpg")."')\"></a></div>";
 
         }
@@ -65,6 +79,7 @@ class CardFunctions
         <th>Ø-Preis</th>
         <th>Foil-Preis</th>
         <th>1. Dt. Karte</th>
+        <th>1. Dt. Karte (NM)</th>
         <th>Abbildung</th>
         <th>Löschen</th>
         <th>info</th>
@@ -91,6 +106,7 @@ class CardFunctions
             <td>".$cardInfo["AveragePrice"]." €</td>
             <td>".$cardInfo["FoilPrice"]." €</td>
             <td>".$cardInfo["firstGerman"]." €</td>
+            <td>".$cardInfo["firstGermanNearMint"]." €</td>
             <td>".$cardInfo["BildLink"]."</td>
             <td><img src=\"./src/img/del.png\" onclick=\"removeCard(".$cardInfo["id"].")\" class='removeCard'></img></td>
             <td>".$info."</td>
