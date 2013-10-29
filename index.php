@@ -48,10 +48,15 @@ $cardFunction = new CardFunctions();
         $("#loadScreen").css("height","0px");
         $("#loadScreen").css("z-index","0");
     }
+    function hoverPic(pic){
+        $("#hoverDiv").css("background","url('"+pic+"') no-repeat scroll 0 0 / 100% auto");
+        $("#hoverDiv").css("display","block");
+    }
 </script>
 <div id="loadScreen"></div>
+
 <div id="content">
-    <div id="warning">Diese Karte ist bereits auf ihrer Liste!</div>
+    <div id="hoverDiv"></div>
     <div id="renderTable"><?php $cardFunction->render(); ?></div>
     <button class="addButton" onclick="addData()">Werte Übertragen</button>
     <button class="addButton" onclick="refreshData()">REFRESH</button>

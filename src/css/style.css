@@ -46,3 +46,10 @@ span.tdinfo_lower {
     color: #00BB00;
     font-size: 60px;
 }
+#hoverDiv {
+    height: 300px;
+    width: 200px;
+    background: #555;
+    position:absolute;
+    display:none;
+}
