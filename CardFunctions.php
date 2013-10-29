@@ -26,7 +26,6 @@ class CardFunctions
             $this->cardsInfo[$i]["OldMinmalPrice"]=$row->pricelowest;
             $this->cardsInfo[$i]["OldAveragePrice"]=$row->priceaverage;
             $this->cardsInfo[$i]["OldFoilPrice"]=$row->pricefoil;
-            $this->cardsInfo[$i]["OldTraderPrice"]=$row->pricetrader;
             $quellcodeMKM = file ($row->urlmkm);
             $strippedCodeMKM=(strip_tags($quellcodeMKM[46]));
             $pricePregmatch="/[0-9]*.,[0-9]*./";
