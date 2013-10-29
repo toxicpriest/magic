@@ -50,7 +50,7 @@ class CardFunctions
                     break;
                 }
             }
-            $this->cardsInfo[$i]["BildLink"]="<a href=".$row->urlmkm."><img src='".str_replace(" ","_","./pictures/".str_replace("'", "´", $row->cardname)."_".$row->edition.".jpg")."' width='60px' onMouseOver=\"hoverPic('".str_replace(" ","_","./pictures/".str_replace("'", "´", $row->cardname)."_".$row->edition.".jpg")."')\"></a>";
+            $this->cardsInfo[$i]["BildLink"]="<div class='hoverPictures'><a href=".$row->urlmkm."><img src='".str_replace(" ","_","./pictures/".str_replace("'", "´", $row->cardname)."_".$row->edition.".jpg")."' width='60px' onMouseLeave=\"hidePic()\" onMouseOver=\"hoverPic('".str_replace(" ","_","./pictures/".str_replace("'", "´", $row->cardname)."_".$row->edition.".jpg")."')\"></a></div>";
 
         }
     }

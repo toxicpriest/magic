@@ -52,6 +52,10 @@ $cardFunction = new CardFunctions();
         $("#hoverDiv").css("background","url('"+pic+"') no-repeat scroll 0 0 / 100% auto");
         $("#hoverDiv").css("display","block");
     }
+    function hidePic(){
+        $("#hoverDiv").css("display","none");
+    }
+
 </script>
 <div id="loadScreen"></div>
 
