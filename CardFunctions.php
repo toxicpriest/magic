@@ -96,7 +96,6 @@ class CardFunctions
                 }
                 preg_match("/col_Even col_[0-9]+? cell_[0-9]+?_[0-9]+? st_ItemCount centered\">(([4-9])|([0-9]{2,}))/",$quellcodeMKM[$n+1] , $match);
                 if(!empty($match)){
-//                        var_dump($match);
                     preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatch);
                     $singlePrice = str_replace(",", "", $priceMatch[0]);
                     $singlePrice = $singlePrice * 4;
@@ -122,7 +121,7 @@ class CardFunctions
            <td class='firstgermanps'>A. Dt. Preis(PS)</td>
            <td class='minimum'>Min.Preis</td>
            <td class='average'>Ø-Preis</td>
-           <td class='firstgerman'>Dt. Händler</td>
+           <td class='firstgerman'>Dt. Preis</td>
            <td class='firstgermannm'>Dt. Preis(NM)</td>
            <td class='firstgermanps'>Dt. Preis(PS)</td>
            <td>Abbildung</td>
@@ -131,7 +130,7 @@ class CardFunctions
            </tr><thead>
           <tfoot><tr>
           <td></td>
-          <td ></td>
+          <td></td>
           <td class='minimum'>A. Min.Preis</td>
           <td class='average'>A. Ø-Preis</td>
           <td class='firstgerman'>A. Dt. Preis</td>
@@ -142,9 +141,6 @@ class CardFunctions
           <td class='firstgerman'>Dt. Preis</td>
           <td class='firstgermannm'>Dt. Preis(NM)</td>
           <td class='firstgermanps'>Dt. Preis(PS)</td>
-          <td></td>
-          <td></td>
-          <td></td>
           </tr><tfoot><tbody>
            ";
 
@@ -200,7 +196,7 @@ class CardFunctions
 
     function addNewURL($urlmkm){
         ini_set("allow_url_fopen",true);
-        ini_set("user_agent","Price_Reader");
+        ini_set("user_agent","user_agent','MSIE 4\.0b2;");
 
         $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
                 mysql_select_db("mtg_preise", $con) or die("Konnte die Datenbank nicht selecten!");
@@ -248,6 +244,15 @@ class CardFunctions
         mysql_select_db("mtg_preise", $con) or die("Konnte die Datenbank nicht selecten!");
 
         $sql = "DELETE FROM card WHERE id=\"$id\";";
+        mysql_query($sql, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
+        $this->render();
+    }
+
+    function  deleteAllCards(){
+        $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
+        mysql_select_db("mtg_preise", $con) or die("Konnte die Datenbank nicht selecten!");
+
+        $sql = "DELETE FROM card;";
         mysql_query($sql, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
         $this->render();
     }

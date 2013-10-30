@@ -150,7 +150,7 @@ a tr td.firstgermanps :hover{
   background: #e7f3d4;
   background: rgba(184,243,85,0.3);
 }
-.features-table td:nth-child(9)
+.features-table td:nth-child(8)
 {
   background: #e7f3d4;
   background: rgba(184,243,85,0.3);
@@ -160,7 +160,7 @@ a tr td.firstgermanps :hover{
   background: #e7f3d4;
   background: rgba(243, 137, 59, 0.29);
 }
-.features-table td:nth-child(10)
+.features-table td:nth-child(9)
 {
   background: #e7f3d4;
   background: rgba(243, 137, 59, 0.29);
@@ -170,7 +170,7 @@ a tr td.firstgermanps :hover{
   background: #e7f3d4;
   background: rgba(95, 94, 243, 0.28);
 }
-.features-table td:nth-child(11)
+.features-table td:nth-child(10)
 {
   background: #e7f3d4;
   background: rgba(95, 94, 243, 0.28);
@@ -180,7 +180,7 @@ a tr td.firstgermanps :hover{
   background: #e7f3d4;
   background: rgba(51, 176, 243, 0.27);
 }
-.features-table td:nth-child(12)
+.features-table td:nth-child(11)
 {
   background: #e7f3d4;
     background: rgba(51, 176, 243, 0.27);
@@ -190,19 +190,10 @@ a tr td.firstgermanps :hover{
   background: #e7f3d4;
   background: rgba(228, 243, 41, 0.26);
 }
-.features-table td:nth-child(13)
+.features-table td:nth-child(12)
 {
   background: #e7f3d4;
   background: rgba(228, 243, 41, 0.26);
-}.features-table td:nth-child(8)
-{
-  background: #e7f3d4;
-  background: rgba(204, 216, 198, 0.25);
-}
-.features-table td:nth-child(14)
-{
-  background: #e7f3d4;
-  background: rgba(204, 216, 198, 0.25);
 }
 
 /*Header*/

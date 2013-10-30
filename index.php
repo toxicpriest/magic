@@ -20,4 +20,5 @@ $cardFunction = new CardFunctions();
     </label>
     <input type="text" id="newURL">
     <button onclick="addCard()">Hinzufügen</button>
+    <button onclick="deleteAll()">Alle Karten entfernen!</button>
 </div>
