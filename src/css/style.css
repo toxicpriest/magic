@@ -53,43 +53,7 @@ span.tdinfo_lower {
     position:absolute;
     display:none;
 }
-th.minimum{
-    background: #bb2322;
-}
-th.average{
-    background: #FF7F24;
-}
-th.foil{
-    background: #FFEC8B;
-}
-th.firstgerman{
-    background: #9dff45;
-}
-th.firstgermannm{
-    background: #C6E2FF;
-}
-th.firstgermanps{
-    background: #AB82FF;
-}
 
-a tr td.minimum :hover{
-    background: #bb2322;
-}
-a tr td.average :hover{
-    background: #FF7F24;
-}
-a tr td.foil :hover{
-    background: #FFEC8B;
-}
-a tr td.firstgerman :hover{
-    background: #9dff45;
-}
-a tr td.firstgermannm :hover{
-    background: #C6E2FF;
-}
-a tr td.firstgermanps :hover{
-    background: #AB82FF;
-}
 
 #main
 {
@@ -145,65 +109,32 @@ a tr td.firstgermanps :hover{
 }
 
 
-.features-table td:nth-child(3)
+.features-table td.minimum
 {
   background: #e7f3d4;
   background: rgba(184,243,85,0.3);
 }
-.features-table td:nth-child(9)
+.features-table td.average
 {
   background: #e7f3d4;
-  background: rgba(184,243,85,0.3);
+  background: rgba(243, 133, 62, 0.29);
 }
-.features-table td:nth-child(4)
+.features-table td.firstgerman
 {
   background: #e7f3d4;
-  background: rgba(243, 137, 59, 0.29);
+  background: rgba(115, 92, 243, 0.29);
 }
-.features-table td:nth-child(10)
+.features-table td.firstgermannm
 {
   background: #e7f3d4;
-  background: rgba(243, 137, 59, 0.29);
+  background: rgba(73, 184, 243, 0.29);
 }
-.features-table td:nth-child(5)
+.features-table td.firstgermanps
 {
   background: #e7f3d4;
-  background: rgba(95, 94, 243, 0.28);
+  background: rgba(243, 243, 52, 0.29);
 }
-.features-table td:nth-child(11)
-{
-  background: #e7f3d4;
-  background: rgba(95, 94, 243, 0.28);
-}
-.features-table td:nth-child(6)
-{
-  background: #e7f3d4;
-  background: rgba(51, 176, 243, 0.27);
-}
-.features-table td:nth-child(12)
-{
-  background: #e7f3d4;
-    background: rgba(51, 176, 243, 0.27);
-}
-.features-table td:nth-child(7)
-{
-  background: #e7f3d4;
-  background: rgba(228, 243, 41, 0.26);
-}
-.features-table td:nth-child(13)
-{
-  background: #e7f3d4;
-  background: rgba(228, 243, 41, 0.26);
-}.features-table td:nth-child(8)
-{
-  background: #e7f3d4;
-  background: rgba(204, 216, 198, 0.25);
-}
-.features-table td:nth-child(14)
-{
-  background: #e7f3d4;
-  background: rgba(204, 216, 198, 0.25);
-}
+
 
 /*Header*/
 .features-table thead td

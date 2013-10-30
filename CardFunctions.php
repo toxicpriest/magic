@@ -120,11 +120,6 @@ class CardFunctions
            <td class='firstgerman'>A. Dt. Preis</td>
            <td class='firstgermannm'>A. Dt. Preis(NM)</td>
            <td class='firstgermanps'>A. Dt. Preis(PS)</td>
-           <td class='minimum'>Min.Preis</td>
-           <td class='average'>Ø-Preis</td>
-           <td class='firstgerman'>Dt. Händler</td>
-           <td class='firstgermannm'>Dt. Preis(NM)</td>
-           <td class='firstgermanps'>Dt. Preis(PS)</td>
            <td>Abbildung</td>
            <td>Löschen</td>
            <td>info</td>
@@ -137,11 +132,6 @@ class CardFunctions
           <td class='firstgerman'>A. Dt. Preis</td>
           <td class='firstgermannm'>A. Dt. Preis(NM)</td>
           <td class='firstgermanps'>A. Dt. Preis(PS)</td>
-          <td class='minimum'>Min.Preis</td>
-          <td class='average'>Ø-Preis</td>
-          <td class='firstgerman'>Dt. Preis</td>
-          <td class='firstgermannm'>Dt. Preis(NM)</td>
-          <td class='firstgermanps'>Dt. Preis(PS)</td>
           <td></td>
           <td></td>
           <td></td>
@@ -161,21 +151,23 @@ class CardFunctions
             }
             $iTable++;
             $table .="<tr class='row_".($iTable%2)."'>
-            <td>".$cardInfo["Name"]."</td>
-            <td>".$cardInfo["Edition"]."</td>
+            <td rowspan='2'>".$cardInfo["Name"]."</td>
+            <td rowspan='2'>".$cardInfo["Edition"]."</td>
             <td class='minimum'>".$cardInfo["OldMinimalPrice"]." €</td>
             <td class='average'>".$cardInfo["OldAveragePrice"]." €</td>
             <td class='firstgerman'>".$cardInfo["OldFirstGermanPrice"]." €</td>
             <td class='firstgermannm'>".$cardInfo["OldFirstGermanPriceNM"]." €</td>
             <td class='firstgermanps'>".$cardInfo["OldFirstGermanPricePS"]." €</td>
+            <td rowspan='2'>".$cardInfo["BildLink"]."</td>
+            <td rowspan='2'><img src=\"./src/img/del.png\" onclick=\"removeCard(".$cardInfo["id"].")\" class='removeCard'></img></td>
+            <td rowspan='2'>".$info."</td>
+            </tr><tr>
             <td class='minimum'>".$cardInfo["MinimalPrice"]." €</td>
             <td class='average'>".$cardInfo["AveragePrice"]." €</td>
             <td class='firstgerman'>".$cardInfo["firstGerman"]." €</td>
             <td class='firstgermannm'>".$cardInfo["firstGermanNearMint"]." €</td>
             <td class='firstgermanps'>".$cardInfo["firstGermanPlayset"]." €</td>
-            <td>".$cardInfo["BildLink"]."</td>
-            <td><img src=\"./src/img/del.png\" onclick=\"removeCard(".$cardInfo["id"].")\" class='removeCard'></img></td>
-            <td>".$info."</td>
+
             </tr>";
         }
         $table .="</tbody></table>";
