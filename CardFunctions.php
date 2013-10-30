@@ -43,25 +43,50 @@ class CardFunctions
             for($n = 61; $n < sizeof($quellcodeMKM) ; $n++){
                 preg_match("/Artikelstandort: Deutschland/", $quellcodeMKM[$n], $matches);
                 if(!empty($matches)){
-                    preg_match("/Artikelstandort: Deutschland/", $quellcodeMKM[$n], $matches);
-
                     preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatches);
                     $this->cardsInfo[$i]["firstGerman"] = str_replace(",", ".", $priceMatches[0]);
                     break;
                 }
             }
-            for($n = 61; $n < sizeof($quellcodeMKM) ; $n++){
-                           preg_match("/Artikelstandort: Deutschland/", $quellcodeMKM[$n], $matches);
-                           if(!empty($matches)){
-                               preg_match("/showMsgBox\('Near Mint'\)/", $quellcodeMKM[$n+1], $match);
-                               if(!empty($match)){
-                                   preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatch);
-                                   $this->cardsInfo[$i]["firstGermanNearMint"] = str_replace(",", ".", $priceMatch[0]);
-                                   break;
-                               }
 
-                           }
-                       }
+            $this->cardsInfo[$i]["firstGermanNearMint"] = "/";
+            for($n = 61; $n < sizeof($quellcodeMKM) ; $n++){
+                preg_match("/Artikelstandort: Deutschland/", $quellcodeMKM[$n], $matches);
+                if(!empty($matches)){
+                    preg_match("/showMsgBox\('Near Mint'\)/", $quellcodeMKM[$n+1], $match);
+                    if(!empty($match)){
+                        preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatch);
+                        $this->cardsInfo[$i]["firstGermanNearMint"] = str_replace(",", ".", $priceMatch[0]);
+                        break;
+                    }
+                }
+            }
+
+            $this->cardsInfo[$i]["firstGermanPlayset"] = "/";
+            for($n = 61; $n < sizeof($quellcodeMKM); $n++){
+                preg_match("/Artikelstandort: Deutschland/", $quellcodeMKM[$n], $matches);
+                if(!empty($matches)){
+                    preg_match("/showMsgBox\('Playset'\)/",$quellcodeMKM[$n+1] , $match);
+                    if(!empty($match)){
+                        preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatch);
+                        $this->cardsInfo[$i]["firstGermanPlayset"] = str_replace(",", ".", $priceMatch[0]);
+                        break;
+                    }
+                    preg_match("/col_Even col_[0-9]+? cell_[0-9]+?_[0-9]+? st_ItemCount centered\">(([4-9])|([0-9]{2,}))/",$quellcodeMKM[$n+1] , $match);
+                    if(!empty($match)){
+//                        var_dump($match);
+                        preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatch);
+                        $singlePrice = str_replace(",", "", $priceMatch[0]);
+                        $singlePrice = $singlePrice * 4;
+                        $singlePrice = $singlePrice / 100;
+                        $this->cardsInfo[$i]["firstGermanPlayset"] = $singlePrice;
+                        break;
+                    }
+                }
+            }
+
+
+
             $this->cardsInfo[$i]["BildLink"]="<div class='hoverPictures'><a href=".$row->urlmkm."><img src='".str_replace(" ","_","./pictures/".str_replace("'", "´", $row->cardname)."_".$row->edition.".jpg")."' width='60px' onMouseLeave=\"hidePic()\" onMouseMove=\"hoverPic('".str_replace(" ","_","./pictures/".str_replace("'", "´", $row->cardname)."_".$row->edition.".jpg")."',event)\"></a></div>";
 
         }
@@ -78,8 +103,9 @@ class CardFunctions
         <th>Min.Preis</th>
         <th>Ø-Preis</th>
         <th>Foil-Preis</th>
-        <th>1. Dt. Karte</th>
-        <th>1. Dt. Karte (NM)</th>
+        <th>1. Dt. Händler</th>
+        <th>1. Dt. Händler (NM)</th>
+        <th>1. Dt. Händler (PS)</th>
         <th>Abbildung</th>
         <th>Löschen</th>
         <th>info</th>
@@ -107,6 +133,7 @@ class CardFunctions
             <td>".$cardInfo["FoilPrice"]." €</td>
             <td>".$cardInfo["firstGerman"]." €</td>
             <td>".$cardInfo["firstGermanNearMint"]." €</td>
+            <td>".$cardInfo["firstGermanPlayset"]." €</td>
             <td>".$cardInfo["BildLink"]."</td>
             <td><img src=\"./src/img/del.png\" onclick=\"removeCard(".$cardInfo["id"].")\" class='removeCard'></img></td>
             <td>".$info."</td>
