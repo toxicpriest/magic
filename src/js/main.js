@@ -47,6 +47,13 @@ function addData(){
   function hidePic(){
       $("#hoverDiv").css("display","none");
   }
+function deleteAll(){
+    showLoadScreen();
+    $.ajax({url:"cardsHandler.php?fn=deleteAllCards",type:"POST",success:function(result){
+        $("#renderTable").html(result);
+        hideLoadScreen();
+    }});
+}
 $(document).ready(function () {
 
 	$('tbody tr').hover(function() {

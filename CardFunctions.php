@@ -192,7 +192,7 @@ class CardFunctions
 
     function addNewURL($urlmkm){
         ini_set("allow_url_fopen",true);
-        ini_set("user_agent","Price_Reader");
+        ini_set("user_agent","user_agent','MSIE 4\.0b2;");
 
         $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
                 mysql_select_db("mtg_preise", $con) or die("Konnte die Datenbank nicht selecten!");
@@ -240,6 +240,15 @@ class CardFunctions
         mysql_select_db("mtg_preise", $con) or die("Konnte die Datenbank nicht selecten!");
 
         $sql = "DELETE FROM card WHERE id=\"$id\";";
+        mysql_query($sql, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
+        $this->render();
+    }
+
+    function  deleteAllCards(){
+        $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
+        mysql_select_db("mtg_preise", $con) or die("Konnte die Datenbank nicht selecten!");
+
+        $sql = "DELETE FROM card;";
         mysql_query($sql, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
         $this->render();
     }
