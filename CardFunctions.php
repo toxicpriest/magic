@@ -110,26 +110,44 @@ class CardFunctions
     }
 
     public function getTable(){
-        $table= "<table id='cardTable' border='3'>
-        <tr>
-        <th width='200px'>Name</th>
-        <th>Edition</th>
-        <th class='minimum'>Alter Min.Preis</th>
-        <th class='average'>Alter Ø-Preis</th>
-        <th class='foil'>Alter Foil-Preis</th>
-        <th class='firstgerman'>Alter Preis 1. Dt. Händler</th>
-        <th class='firstgermannm'>Alter Preis 1. Dt. Händler (NM)</th>
-        <th class='firstgermanps'>Alter Preis 1. Dt. Händler (PS)</th>
-        <th class='minimum'>Min.Preis</th>
-        <th class='average'>Ø-Preis</th>
-        <th class='foil'>Foil-Preis</th>
-        <th class='firstgerman'>1. Dt. Händler</th>
-        <th class='firstgermannm'>1. Dt. Händler (NM)</th>
-        <th class='firstgermanps'>1. Dt. Händler (PS)</th>
-        <th>Abbildung</th>
-        <th>Löschen</th>
-        <th>info</th>
-        </tr>";
+        $table= "<table id='cardTable' class='features-table''>
+
+           <thead><tr>
+           <td width='200px'>Name</td>
+           <td >Edition</td>
+           <td class='minimum'>A. Min.Preis</td>
+           <td class='average'>A. Ø-Preis</td>
+           <td class='firstgerman'>A. Dt. Preis</td>
+           <td class='firstgermannm'>A. Dt. Preis(NM)</td>
+           <td class='firstgermanps'>A. Dt. Preis(PS)</td>
+           <td class='minimum'>Min.Preis</td>
+           <td class='average'>Ø-Preis</td>
+           <td class='firstgerman'>Dt. Händler</td>
+           <td class='firstgermannm'>Dt. Preis(NM)</td>
+           <td class='firstgermanps'>Dt. Preis(PS)</td>
+           <td>Abbildung</td>
+           <td>Löschen</td>
+           <td>info</td>
+           </tr><thead>
+          <tfoot><tr>
+          <td></td>
+          <td ></td>
+          <td class='minimum'>A. Min.Preis</td>
+          <td class='average'>A. Ø-Preis</td>
+          <td class='firstgerman'>A. Dt. Preis</td>
+          <td class='firstgermannm'>A. Dt. Preis(NM)</td>
+          <td class='firstgermanps'>A. Dt. Preis(PS)</td>
+          <td class='minimum'>Min.Preis</td>
+          <td class='average'>Ø-Preis</td>
+          <td class='firstgerman'>Dt. Preis</td>
+          <td class='firstgermannm'>Dt. Preis(NM)</td>
+          <td class='firstgermanps'>Dt. Preis(PS)</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          </tr><tfoot><tbody>
+           ";
+
         $iTable=0;
         foreach($this->cardsInfo as $cardInfo){
             if($cardInfo["OldMinimalPrice"] >$cardInfo["MinimalPrice"]){
@@ -145,24 +163,22 @@ class CardFunctions
             $table .="<tr class='row_".($iTable%2)."'>
             <td>".$cardInfo["Name"]."</td>
             <td>".$cardInfo["Edition"]."</td>
-            <td>".$cardInfo["OldMinimalPrice"]." €</td>
-            <td>".$cardInfo["OldAveragePrice"]." €</td>
-            <td>".$cardInfo["OldFoilPrice"]." €</td>
-            <td>".$cardInfo["OldFirstGermanPrice"]." €</td>
-            <td>".$cardInfo["OldFirstGermanPriceNM"]." €</td>
-            <td>".$cardInfo["OldFirstGermanPricePS"]." €</td>
-            <td>".$cardInfo["MinimalPrice"]." €</td>
-            <td>".$cardInfo["AveragePrice"]." €</td>
-            <td>".$cardInfo["FoilPrice"]." €</td>
-            <td>".$cardInfo["firstGerman"]." €</td>
-            <td>".$cardInfo["firstGermanNearMint"]." €</td>
-            <td>".$cardInfo["firstGermanPlayset"]." €</td>
+            <td class='minimum'>".$cardInfo["OldMinimalPrice"]." €</td>
+            <td class='average'>".$cardInfo["OldAveragePrice"]." €</td>
+            <td class='firstgerman'>".$cardInfo["OldFirstGermanPrice"]." €</td>
+            <td class='firstgermannm'>".$cardInfo["OldFirstGermanPriceNM"]." €</td>
+            <td class='firstgermanps'>".$cardInfo["OldFirstGermanPricePS"]." €</td>
+            <td class='minimum'>".$cardInfo["MinimalPrice"]." €</td>
+            <td class='average'>".$cardInfo["AveragePrice"]." €</td>
+            <td class='firstgerman'>".$cardInfo["firstGerman"]." €</td>
+            <td class='firstgermannm'>".$cardInfo["firstGermanNearMint"]." €</td>
+            <td class='firstgermanps'>".$cardInfo["firstGermanPlayset"]." €</td>
             <td>".$cardInfo["BildLink"]."</td>
             <td><img src=\"./src/img/del.png\" onclick=\"removeCard(".$cardInfo["id"].")\" class='removeCard'></img></td>
             <td>".$info."</td>
             </tr>";
         }
-        $table .="</table>";
+        $table .="</tbody></table>";
         return $table;
     }
 

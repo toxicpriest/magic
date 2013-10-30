@@ -11,7 +11,7 @@ $cardFunction = new CardFunctions();
 
 <div id="content">
     <div id="hoverDiv"></div>
-    <div id="renderTable"><?php $cardFunction->render(); ?></div>
+    <div id="renderTable main"><?php $cardFunction->render(); ?></div>
     <button class="addButton" onclick="addData()">Werte Übertragen</button>
     <button class="addButton" onclick="refreshData()">REFRESH</button>
 
