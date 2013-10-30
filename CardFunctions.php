@@ -59,22 +59,22 @@ class CardFunctions
             $data["FoilPrice"]=0;
         }
 
-        // TODO: if first card is a playset, go on searching
         $data["firstGerman"] = "/";
         for($n = 61; $n < sizeof($quellcodeMKM) ; $n++){
             preg_match("/Artikelstandort: Deutschland/", $quellcodeMKM[$n], $matches);
-            if(!empty($matches)){
+            preg_match("/showMsgBox\('Playset'\)/",$quellcodeMKM[$n+1] , $playsetMatch);
+            if(!empty($matches) && empty($playsetMatch)){
                 preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatches);
                 $data["firstGerman"] = str_replace(",", ".", $priceMatches[0]);
                 break;
             }
         }
 
-        // TODO: if first NM card is a playset, go on searching
         $data["firstGermanNearMint"] = "/";
         for($n = 61; $n < sizeof($quellcodeMKM) ; $n++){
             preg_match("/Artikelstandort: Deutschland/", $quellcodeMKM[$n], $matches);
-            if(!empty($matches)){
+            preg_match("/showMsgBox\('Playset'\)/",$quellcodeMKM[$n+1] , $playsetMatch);
+            if(!empty($matches) && empty($playsetMatch)){
                 preg_match("/showMsgBox\('Near Mint'\)/", $quellcodeMKM[$n+1], $match);
                 if(!empty($match)){
                     preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatch);
