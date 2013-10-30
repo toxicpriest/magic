@@ -161,7 +161,8 @@ class CardFunctions
             <td rowspan='2'>".$cardInfo["BildLink"]."</td>
             <td rowspan='2'><img src=\"./src/img/del.png\" onclick=\"removeCard(".$cardInfo["id"].")\" class='removeCard'></img></td>
             <td rowspan='2'>".$info."</td>
-            </tr><tr>
+            </tr>
+            <tr>
             <td class='minimum'>".$cardInfo["MinimalPrice"]." €</td>
             <td class='average'>".$cardInfo["AveragePrice"]." €</td>
             <td class='firstgerman'>".$cardInfo["firstGerman"]." €</td>
