@@ -2,6 +2,9 @@ body{
     padding: 0px;
     margin: 0px;
 }
+tbody tr.odd td {
+	background:#bcd9e1;
+	}
 #loadScreen{
     height:0px;
     width:0px;
