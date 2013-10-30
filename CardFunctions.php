@@ -19,77 +19,94 @@ class CardFunctions
         $showStatement = "SELECT * FROM card;";
         $result = mysql_query($showStatement, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
         while($row = mysql_fetch_object($result)){
+            //getting Data from DB
             $i=$row->id;
             $this->cardsInfo[$i]["id"]=$row->id;
             $this->cardsInfo[$i]["Name"]=$row->cardname;
             $this->cardsInfo[$i]["Edition"]=$row->edition;
-            $this->cardsInfo[$i]["OldMinmalPrice"]=$row->pricelowest;
+            $this->cardsInfo[$i]["OldMinimalPrice"]=$row->pricelowest;
             $this->cardsInfo[$i]["OldAveragePrice"]=$row->priceaverage;
             $this->cardsInfo[$i]["OldFoilPrice"]=$row->pricefoil;
-            $quellcodeMKM = file ($row->urlmkm);
-            $strippedCodeMKM=(strip_tags($quellcodeMKM[46]));
-            $pricePregmatch="/[0-9]*.,[0-9]+./";
-            preg_match_all($pricePregmatch,$strippedCodeMKM,$price);
-            $this->cardsInfo[$i]["MinmalPrice"]=trim(str_replace(",",".",$price[0][0]));
-            $this->cardsInfo[$i]["AveragePrice"]=trim(str_replace(",",".",$price[0][1]));
-            if(isset($price[0][2])){
-                $this->cardsInfo[$i]["FoilPrice"]=trim(str_replace(",",".",$price[0][2]));
-            }
-            else{
-                $this->cardsInfo[$i]["FoilPrice"]=0;
-            }
+            $this->cardsInfo[$i]["OldFirstGermanPrice"]=$row->pricefirstger;
+            $this->cardsInfo[$i]["OldFirstGermanPriceNM"]=$row->pricefirstgernm;
+            $this->cardsInfo[$i]["OldFirstGermanPricePS"]=$row->pricefirstgerps;
 
-            $this->cardsInfo[$i]["firstGerman"] = "/";
-            for($n = 61; $n < sizeof($quellcodeMKM) ; $n++){
-                preg_match("/Artikelstandort: Deutschland/", $quellcodeMKM[$n], $matches);
-                if(!empty($matches)){
-                    preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatches);
-                    $this->cardsInfo[$i]["firstGerman"] = str_replace(",", ".", $priceMatches[0]);
-                    break;
-                }
-            }
-
-            $this->cardsInfo[$i]["firstGermanNearMint"] = "/";
-            for($n = 61; $n < sizeof($quellcodeMKM) ; $n++){
-                preg_match("/Artikelstandort: Deutschland/", $quellcodeMKM[$n], $matches);
-                if(!empty($matches)){
-                    preg_match("/showMsgBox\('Near Mint'\)/", $quellcodeMKM[$n+1], $match);
-                    if(!empty($match)){
-                        preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatch);
-                        $this->cardsInfo[$i]["firstGermanNearMint"] = str_replace(",", ".", $priceMatch[0]);
-                        break;
-                    }
-                }
-            }
-
-            $this->cardsInfo[$i]["firstGermanPlayset"] = "/";
-            for($n = 61; $n < sizeof($quellcodeMKM); $n++){
-                preg_match("/Artikelstandort: Deutschland/", $quellcodeMKM[$n], $matches);
-                if(!empty($matches)){
-                    preg_match("/showMsgBox\('Playset'\)/",$quellcodeMKM[$n+1] , $match);
-                    if(!empty($match)){
-                        preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatch);
-                        $this->cardsInfo[$i]["firstGermanPlayset"] = str_replace(",", ".", $priceMatch[0]);
-                        break;
-                    }
-                    preg_match("/col_Even col_[0-9]+? cell_[0-9]+?_[0-9]+? st_ItemCount centered\">(([4-9])|([0-9]{2,}))/",$quellcodeMKM[$n+1] , $match);
-                    if(!empty($match)){
-//                        var_dump($match);
-                        preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatch);
-                        $singlePrice = str_replace(",", "", $priceMatch[0]);
-                        $singlePrice = $singlePrice * 4;
-                        $singlePrice = $singlePrice / 100;
-                        $this->cardsInfo[$i]["firstGermanPlayset"] = $singlePrice;
-                        break;
-                    }
-                }
-            }
-
-
+            $newData = $this->getFreshData($row->urlmkm);
+            $this->cardsInfo[$i]["MinimalPrice"] = $newData['MinimalPrice'];
+            $this->cardsInfo[$i]["AveragePrice"] = $newData['AveragePrice'];
+            $this->cardsInfo[$i]["FoilPrice"] = $newData['FoilPrice'];
+            $this->cardsInfo[$i]["firstGerman"] = $newData['firstGerman'];
+            $this->cardsInfo[$i]["firstGermanNearMint"] = $newData['firstGermanNearMint'];
+            $this->cardsInfo[$i]["firstGermanPlayset"] = $newData['firstGermanPlayset'];
 
             $this->cardsInfo[$i]["BildLink"]="<div class='hoverPictures'><a href=".$row->urlmkm."><img src='".str_replace(" ","_","./pictures/".str_replace("'", "´", $row->cardname)."_".$row->edition.".jpg")."' width='60px' onMouseLeave=\"hidePic()\" onMouseMove=\"hoverPic('".str_replace(" ","_","./pictures/".str_replace("'", "´", $row->cardname)."_".$row->edition.".jpg")."',event)\"></a></div>";
 
         }
+    }
+
+    function getFreshData($url){
+        $data = array();
+        $quellcodeMKM = file ($url);
+        $strippedCodeMKM=(strip_tags($quellcodeMKM[46]));
+        $pricePregmatch="/[0-9]*.,[0-9]+./";
+        preg_match_all($pricePregmatch,$strippedCodeMKM,$price);
+        $data["MinimalPrice"]=trim(str_replace(",",".",$price[0][0]));
+        $data["AveragePrice"]=trim(str_replace(",",".",$price[0][1]));
+        if(isset($price[0][2])){
+            $data["FoilPrice"]=trim(str_replace(",",".",$price[0][2]));
+        }
+        else{
+            $data["FoilPrice"]=0;
+        }
+
+        // TODO: if first card is a playset, go on searching
+        $data["firstGerman"] = "/";
+        for($n = 61; $n < sizeof($quellcodeMKM) ; $n++){
+            preg_match("/Artikelstandort: Deutschland/", $quellcodeMKM[$n], $matches);
+            if(!empty($matches)){
+                preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatches);
+                $data["firstGerman"] = str_replace(",", ".", $priceMatches[0]);
+                break;
+            }
+        }
+
+        // TODO: if first NM card is a playset, go on searching
+        $data["firstGermanNearMint"] = "/";
+        for($n = 61; $n < sizeof($quellcodeMKM) ; $n++){
+            preg_match("/Artikelstandort: Deutschland/", $quellcodeMKM[$n], $matches);
+            if(!empty($matches)){
+                preg_match("/showMsgBox\('Near Mint'\)/", $quellcodeMKM[$n+1], $match);
+                if(!empty($match)){
+                    preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatch);
+                    $data["firstGermanNearMint"] = str_replace(",", ".", $priceMatch[0]);
+                    break;
+                }
+            }
+        }
+
+        $data["firstGermanPlayset"] = "/";
+        for($n = 61; $n < sizeof($quellcodeMKM); $n++){
+            preg_match("/Artikelstandort: Deutschland/", $quellcodeMKM[$n], $matches);
+            if(!empty($matches)){
+                preg_match("/showMsgBox\('Playset'\)/",$quellcodeMKM[$n+1] , $match);
+                if(!empty($match)){
+                    preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatch);
+                    $data["firstGermanPlayset"] = str_replace(",", ".", $priceMatch[0]);
+                    break;
+                }
+                preg_match("/col_Even col_[0-9]+? cell_[0-9]+?_[0-9]+? st_ItemCount centered\">(([4-9])|([0-9]{2,}))/",$quellcodeMKM[$n+1] , $match);
+                if(!empty($match)){
+//                        var_dump($match);
+                    preg_match("/[0-9]{1,3},[0-9]{2}/", $quellcodeMKM[$n+1], $priceMatch);
+                    $singlePrice = str_replace(",", "", $priceMatch[0]);
+                    $singlePrice = $singlePrice * 4;
+                    $singlePrice = $singlePrice / 100;
+                    $data["firstGermanPlayset"] = $singlePrice;
+                    break;
+                }
+            }
+        }
+        return $data;
     }
 
     public function getTable(){
@@ -97,38 +114,44 @@ class CardFunctions
         <tr>
         <th width='200px'>Name</th>
         <th>Edition</th>
-        <th>Alter Min.Preis</th>
-        <th>Alter Ø-Preis</th>
-        <th>Alter Foil-Preis</th>
-        <th>Min.Preis</th>
-        <th>Ø-Preis</th>
-        <th>Foil-Preis</th>
-        <th>1. Dt. Händler</th>
-        <th>1. Dt. Händler (NM)</th>
-        <th>1. Dt. Händler (PS)</th>
+        <th class='minimum'>Alter Min.Preis</th>
+        <th class='average'>Alter Ø-Preis</th>
+        <th class='foil'>Alter Foil-Preis</th>
+        <th class='firstgerman'>Alter Preis 1. Dt. Händler</th>
+        <th class='firstgermannm'>Alter Preis 1. Dt. Händler (NM)</th>
+        <th class='firstgermanps'>Alter Preis 1. Dt. Händler (PS)</th>
+        <th class='minimum'>Min.Preis</th>
+        <th class='average'>Ø-Preis</th>
+        <th class='foil'>Foil-Preis</th>
+        <th class='firstgerman'>1. Dt. Händler</th>
+        <th class='firstgermannm'>1. Dt. Händler (NM)</th>
+        <th class='firstgermanps'>1. Dt. Händler (PS)</th>
         <th>Abbildung</th>
         <th>Löschen</th>
         <th>info</th>
         </tr>";
         $iTable=0;
         foreach($this->cardsInfo as $cardInfo){
-            if($cardInfo["OldMinmalPrice"] >$cardInfo["MinmalPrice"]){
+            if($cardInfo["OldMinimalPrice"] >$cardInfo["MinimalPrice"]){
                 $info="<span class='tdinfo_lower'>!</span>";
             }
-            elseif($cardInfo["OldMinmalPrice"] < $cardInfo["MinmalPrice"]){
+            elseif($cardInfo["OldMinimalPrice"] < $cardInfo["MinimalPrice"]){
                 $info="<span class='tdinfo_higher'>!</span>";
             }
-            elseif($cardInfo["OldMinmalPrice"] == $cardInfo["MinmalPrice"]){
+            elseif($cardInfo["OldMinimalPrice"] == $cardInfo["MinimalPrice"]){
                 $info="<span class='tdinfo_equal'>=</span>";
             }
             $iTable++;
             $table .="<tr class='row_".($iTable%2)."'>
             <td>".$cardInfo["Name"]."</td>
             <td>".$cardInfo["Edition"]."</td>
-            <td>".$cardInfo["OldMinmalPrice"]." €</td>
+            <td>".$cardInfo["OldMinimalPrice"]." €</td>
             <td>".$cardInfo["OldAveragePrice"]." €</td>
             <td>".$cardInfo["OldFoilPrice"]." €</td>
-            <td>".$cardInfo["MinmalPrice"]." €</td>
+            <td>".$cardInfo["OldFirstGermanPrice"]." €</td>
+            <td>".$cardInfo["OldFirstGermanPriceNM"]." €</td>
+            <td>".$cardInfo["OldFirstGermanPricePS"]." €</td>
+            <td>".$cardInfo["MinimalPrice"]." €</td>
             <td>".$cardInfo["AveragePrice"]." €</td>
             <td>".$cardInfo["FoilPrice"]." €</td>
             <td>".$cardInfo["firstGerman"]." €</td>
@@ -150,9 +173,9 @@ class CardFunctions
                 mysql_select_db("mtg_preise", $con) or die("Konnte die Datenbank nicht selecten!");
 
         foreach($this->cardsInfo as $cards){
-            $addStatement = "Update card set pricelowest='".$cards["MinmalPrice"]."', priceaverage='".$cards["AveragePrice"]."', pricefoil='".$cards["FoilPrice"]."' where id = ".$cards["id"].";";
+            $addStatement = "Update card set pricelowest='".$cards["MinimalPrice"]."', priceaverage='".$cards["AveragePrice"]."', pricefoil='".$cards["FoilPrice"]."', pricefirstger='".$cards["firstGerman"]."', pricefirstgernm='".$cards["firstGermanNearMint"]."', pricefirstgerps='".$cards["firstGermanPlayset"]."' where id = ".$cards["id"].";";
             $result = mysql_query($addStatement, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
-            $this->cardsInfo[$cards["id"]]["OldMinmalPrice"]=$cards["MinmalPrice"];
+            $this->cardsInfo[$cards["id"]]["OldMinimalPrice"]=$cards["MinimalPrice"];
             $this->cardsInfo[$cards["id"]]["OldAveragePrice"]=$cards["AveragePrice"];
             $this->cardsInfo[$cards["id"]]["OldFoilPrice"]=$cards["FoilPrice"];
         }
@@ -184,19 +207,9 @@ class CardFunctions
             preg_match($patternEdition, $quellcodeMKM[4], $editionArr);
             $edition = $editionArr[1];
 
-            //Getting the mkm prices
-            $strippedCodeMKM=(strip_tags($quellcodeMKM[46]));
-            $pricePregmatch="/[0-9]*.,[0-9]*./";
-            preg_match_all($pricePregmatch,$strippedCodeMKM,$price);
-            $minimalPrice=str_replace(",",".",$price[0][0]);
-            $averagePrice=str_replace(",",".",$price[0][1]);
-            if(isset($price[0][2])){
-              $foilPrice=str_replace(",",".",$price[0][2]);
-            }
-            else{
-                $foilPrice=0;
-            }
-            $sql = "INSERT INTO card(urlmkm, edition, cardname, pricelowest, priceaverage, pricefoil) VALUES(\"$urlmkm\", \"$edition\", \"$name\", \"$minimalPrice\", \"$averagePrice\", \"$foilPrice\");";
+            $freshData = $this->getFreshData($urlmkm);
+
+            $sql = "INSERT INTO card(urlmkm, edition, cardname, pricelowest, priceaverage, pricefoil, pricefirstger, pricefirstgernm, pricefirstgerps) VALUES(\"$urlmkm\", \"$edition\", \"$name\", \"".$freshData['MinimalPrice']."\", \"".$freshData['AveragePrice']."\", \"".$freshData['FoilPrice']."\", \"".$freshData['firstGerman']."\" , \"".$freshData['firstGermanNearMint']."\" , \"".$freshData['firstGermanPlayset']."\");";
 
             //Getting the picture
             $picPregmatch='/<span class="prodImage"><img src=".(.*)" alt=".*<span class="prodDetails">/';

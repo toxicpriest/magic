@@ -53,3 +53,21 @@ span.tdinfo_lower {
     position:absolute;
     display:none;
 }
+th.minimum{
+    background: #bb2322;
+}
+th.average{
+    background: #FF7F24;
+}
+th.foil{
+    background: #FFEC8B;
+}
+th.firstgerman{
+    background: #9dff45;
+}
+th.firstgermannm{
+    background: #C6E2FF;
+}
+th.firstgermanps{
+    background: #AB82FF;
+}
