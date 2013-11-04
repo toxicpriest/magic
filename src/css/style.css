@@ -5,6 +5,18 @@ body{
 tbody tr.odd td {
 	background:#bcd9e1;
 	}
+.menuBar {
+    background: none repeat scroll 0 0 #777777;
+    margin: 5px auto 0;
+    width: 850px;
+    height: 25px;
+
+}
+.footer{
+    bottom:0px;
+    position: fixed;
+    width:100%;
+}
 #loadScreen{
     height:0px;
     width:0px;
@@ -16,6 +28,7 @@ tbody tr.odd td {
     filter:alpha(opacity=50); /* IE5.x -7.0 */
 }
 #cardTable {
+    width:850px;
     margin: 0 auto;
     border-spacing: 0px;
 }
@@ -35,7 +48,8 @@ tr.row_1{
     text-align: center;
 }
 div#content {
-    margin: 0 auto;
+    text-align: center;
+    margin: 0 auto 50px;
 }
 img.removeCard{
     width:20px;
@@ -62,20 +76,6 @@ span.tdinfo_lower {
     display:none;
 }
 
-
-.mainTable
-{
-	width: 960px;
-	margin: 160px auto 0 auto;
-	background: white;
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	padding: 30px;
-	border: 1px solid #adaa9f;
-	-moz-box-shadow: 0 2px 2px #9c9c9c;
-	-webkit-box-shadow: 0 2px 2px #9c9c9c;
-}
-
 /*Features table------------------------------------------------------------*/
 .features-table
 {
@@ -93,7 +93,6 @@ span.tdinfo_lower {
 .features-table td
 {
   line-height: 50px;
-  padding: 0 20px;
   border-bottom: 1px solid #cdcdcd;
   box-shadow: 0 1px 0 white;
   -moz-box-shadow: 0 1px 0 white;

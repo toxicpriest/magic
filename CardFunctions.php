@@ -110,7 +110,7 @@ class CardFunctions
     }
 
     public function getTable(){
-        $table= "<table id='cardTable' class='features-table''>
+        $table= "<table id='cardTable' class='features-table'>
 
            <thead><tr>
            <td width='200px'>Name</td>
