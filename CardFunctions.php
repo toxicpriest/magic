@@ -39,7 +39,7 @@ class CardFunctions
             $this->cardsInfo[$i]["firstGermanNearMint"] = $newData['firstGermanNearMint'];
             $this->cardsInfo[$i]["firstGermanPlayset"] = $newData['firstGermanPlayset'];
 
-            $this->cardsInfo[$i]["BildLink"]="<div class='hoverPictures'><a href=".$row->urlmkm."><img src='".str_replace(" ","_","./pictures/".str_replace("'", "´", $row->cardname)."_".$row->edition.".jpg")."' width='60px' onMouseLeave=\"hidePic()\" onMouseMove=\"hoverPic('".str_replace(" ","_","./pictures/".str_replace("'", "´", $row->cardname)."_".$row->edition.".jpg")."',event)\"></a></div>";
+            $this->cardsInfo[$i]["BildLink"]="<div class='hoverPictures'><a href=".$row->urlmkm."><img src='".str_replace(" ","_","./pictures/".str_replace("'", "´", $row->cardname)."_".str_replace("'", "´",$row->edition).".jpg")."' width='60px' onMouseLeave=\"hidePic()\" onMouseMove=\"hoverPic('".str_replace(" ","_","./pictures/".str_replace("'", "´", $row->cardname)."_".$row->edition.".jpg")."',event)\"></a></div>";
 
         }
     }
@@ -151,25 +151,18 @@ class CardFunctions
             }
             $iTable++;
             $table .="<tr class='row_".($iTable%2)."'>
-            <td rowspan='2'>".$cardInfo["Name"]."</td>
-            <td rowspan='2'>".$cardInfo["Edition"]."</td>
-            <td class='minimum'>".$cardInfo["OldMinimalPrice"]." €</td>
-            <td class='average'>".$cardInfo["OldAveragePrice"]." €</td>
-            <td class='firstgerman'>".$cardInfo["OldFirstGermanPrice"]." €</td>
-            <td class='firstgermannm'>".$cardInfo["OldFirstGermanPriceNM"]." €</td>
-            <td class='firstgermanps'>".$cardInfo["OldFirstGermanPricePS"]." €</td>
-            <td rowspan='2'>".$cardInfo["BildLink"]."</td>
-            <td rowspan='2'><img src=\"./src/img/del.png\" onclick=\"removeCard(".$cardInfo["id"].")\" class='removeCard'></img></td>
-            <td rowspan='2'>".$info."</td>
+            <td>".$cardInfo["Name"]."</td>
+            <td>".$cardInfo["Edition"]."</td>
+            <td class='minimum'><table><tr><td>".$cardInfo["OldMinimalPrice"]." €</td></tr><tr><td>".$cardInfo["MinimalPrice"]." €</td></tr></table></td>
+            <td class='average'><table><tr><td>".$cardInfo["OldAveragePrice"]." €</td></tr><tr><td>".$cardInfo["AveragePrice"]." €</td></tr></table></td>
+            <td class='firstgerman'><table><tr><td>".$cardInfo["OldFirstGermanPrice"]." €</td></tr><tr><td>".$cardInfo["firstGerman"]." €</td></tr></table></td>
+            <td class='firstgermannm'><table><tr><td>".$cardInfo["OldFirstGermanPriceNM"]." €</td></tr><tr><td>".$cardInfo["firstGermanNearMint"]." €</td></tr></table></td>
+            <td class='firstgermanps'><table><tr><td>".$cardInfo["OldFirstGermanPricePS"]." €</td></tr><tr><td>".$cardInfo["firstGermanPlayset"]." €</td></tr></table></td>
+            <td>".$cardInfo["BildLink"]."</td>
+            <td><img src=\"./src/img/del.png\" onclick=\"removeCard(".$cardInfo["id"].")\" class='removeCard'></img></td>
+            <td>".$info."</td>
             </tr>
-            <tr>
-            <td class='minimum'>".$cardInfo["MinimalPrice"]." €</td>
-            <td class='average'>".$cardInfo["AveragePrice"]." €</td>
-            <td class='firstgerman'>".$cardInfo["firstGerman"]." €</td>
-            <td class='firstgermannm'>".$cardInfo["firstGermanNearMint"]." €</td>
-            <td class='firstgermanps'>".$cardInfo["firstGermanPlayset"]." €</td>
-
-            </tr>";
+            <tr>";
         }
         $table .="</tbody></table>";
         return $table;
@@ -225,7 +218,7 @@ class CardFunctions
             preg_match($picPregmatch, $quellcodeMKM[46], $pic);
             $picPath="https://www.magickartenmarkt.de".$pic[1];
             //Change blank spaces for "_" and change "'" in $name for "´"
-            $picSavePath="./pictures/".str_replace(" ","_",str_replace("'", "´", $name)."_".$edition.".jpg");
+            $picSavePath="./pictures/".str_replace(" ","_",str_replace("'", "´", $name)."_".str_replace("'", "´",$edition).".jpg");
             file_put_contents($picSavePath, file_get_contents($picPath));
             mysql_query($sql, $con) or die("SQL-Statement konnte nicht abgesetzt werden!");
 
