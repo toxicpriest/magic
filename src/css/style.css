@@ -19,9 +19,17 @@ tbody tr.odd td {
     margin: 0 auto;
     border-spacing: 0px;
 }
-
+.innerTable {
+    height: 100%;
+    width: 100%;
+    border-spacing: 0;
+}
 tr.row_0{
     background: #FFF;
+    height:100px;
+}
+tr.row_1{
+    height:100px;
 }
 #cardTable td{
     text-align: center;
@@ -113,26 +121,31 @@ span.tdinfo_lower {
 {
   background: #e7f3d4;
   background: rgba(184,243,85,0.3);
+  padding:0;
 }
 .features-table td.average
 {
   background: #e7f3d4;
   background: rgba(243, 133, 62, 0.29);
+  padding:0;
 }
 .features-table td.firstgerman
 {
   background: #e7f3d4;
   background: rgba(115, 92, 243, 0.29);
+  padding:0;
 }
 .features-table td.firstgermannm
 {
   background: #e7f3d4;
   background: rgba(73, 184, 243, 0.29);
+  padding:0;
 }
 .features-table td.firstgermanps
 {
   background: #e7f3d4;
   background: rgba(243, 243, 52, 0.29);
+  padding:0;
 }
 
 

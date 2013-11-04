@@ -153,16 +153,15 @@ class CardFunctions
             $table .="<tr class='row_".($iTable%2)."'>
             <td>".$cardInfo["Name"]."</td>
             <td>".$cardInfo["Edition"]."</td>
-            <td class='minimum'><table><tr><td>".$cardInfo["OldMinimalPrice"]." €</td></tr><tr><td>".$cardInfo["MinimalPrice"]." €</td></tr></table></td>
-            <td class='average'><table><tr><td>".$cardInfo["OldAveragePrice"]." €</td></tr><tr><td>".$cardInfo["AveragePrice"]." €</td></tr></table></td>
-            <td class='firstgerman'><table><tr><td>".$cardInfo["OldFirstGermanPrice"]." €</td></tr><tr><td>".$cardInfo["firstGerman"]." €</td></tr></table></td>
-            <td class='firstgermannm'><table><tr><td>".$cardInfo["OldFirstGermanPriceNM"]." €</td></tr><tr><td>".$cardInfo["firstGermanNearMint"]." €</td></tr></table></td>
-            <td class='firstgermanps'><table><tr><td>".$cardInfo["OldFirstGermanPricePS"]." €</td></tr><tr><td>".$cardInfo["firstGermanPlayset"]." €</td></tr></table></td>
+            <td class='minimum'><table class='innerTable'><tr><td>".$cardInfo["OldMinimalPrice"]." €</td></tr><tr><td>".$cardInfo["MinimalPrice"]." €</td></tr></table></td>
+            <td class='average'><table class='innerTable'><tr><td>".$cardInfo["OldAveragePrice"]." €</td></tr><tr><td>".$cardInfo["AveragePrice"]." €</td></tr></table></td>
+            <td class='firstgerman'><table class='innerTable'><tr><td>".$cardInfo["OldFirstGermanPrice"]." €</td></tr><tr><td>".$cardInfo["firstGerman"]." €</td></tr></table></td>
+            <td class='firstgermannm'><table class='innerTable'><tr><td>".$cardInfo["OldFirstGermanPriceNM"]." €</td></tr><tr><td>".$cardInfo["firstGermanNearMint"]." €</td></tr></table></td>
+            <td class='firstgermanps'><table class='innerTable'><tr><td>".$cardInfo["OldFirstGermanPricePS"]." €</td></tr><tr><td>".$cardInfo["firstGermanPlayset"]." €</td></tr></table></td>
             <td>".$cardInfo["BildLink"]."</td>
             <td><img src=\"./src/img/del.png\" onclick=\"removeCard(".$cardInfo["id"].")\" class='removeCard'></img></td>
             <td>".$info."</td>
-            </tr>
-            <tr>";
+            </tr>";
         }
         $table .="</tbody></table>";
         return $table;
