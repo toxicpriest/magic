@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>mtg_preise</string>
+			<key>host</key>
+			<string>127.0.0.1</string>
+			<key>kcid</key>
+			<string>-4906812041107618946</string>
+			<key>name</key>
+			<string>LOCALHOST</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>oxid</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>latin1</string>
+			<key>contentFilter</key>
+			<dict/>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGNjdYJHZlcnNpb25YJG9iamVjdHNZJGFy
+			Y2hpdmVyVCR0b3ASAAGGoK0HCBUWFxgZHSQoLDA0VSRudWxs0wkK
+			CwwQFFdOUy5rZXlzWk5TLm9iamVjdHNWJGNsYXNzow0OD4ACgAOA
+			BKMREhOABYAGgAiADFR0eXBlVHJvd3NUa2V5c18QJlNlbGVjdGlv
+			bkRldGFpbFR5cGVQcmltYXJ5S2V5ZWREZXRhaWxz0wkKCxobHKCg
+			gAfSHh8gIVokY2xhc3NuYW1lWCRjbGFzc2VzXxATTlNNdXRhYmxl
+			RGljdGlvbmFyeaMgIiNcTlNEaWN0aW9uYXJ5WE5TT2JqZWN00goL
+			JSehJoAJgAvSCykqK1lOUy5zdHJpbmeAClJpZNIeHy0uXxAPTlNN
+			dXRhYmxlU3RyaW5noy0vI1hOU1N0cmluZ9IeHzEyXk5TTXV0YWJs
+			ZUFycmF5ozEzI1dOU0FycmF50h4fIjWiIiNfEA9OU0tleWVkQXJj
+			aGl2ZXLRODlUZGF0YYABAAgAEQAaACMALQAyADcARQBLAFIAWgBl
+			AGwAcAByAHQAdgB6AHwAfgCAAIIAhwCMAJEAugDBAMIAwwDFAMoA
+			1QDeAPQA+AEFAQ4BEwEVARcBGQEeASgBKgEtATIBRAFIAVEBVgFl
+			AWkBcQF2AXkBiwGOAZMAAAAAAAACAQAAAAAAAAA6AAAAAAAAAAAA
+			AAAAAAABlQ==
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{4, 0}, {888, 539}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>Update card set pricelowest='36,75' , priceaverage='53,54' , pricefoil='98,95'  where id = 1;
+</string>
+			<key>table</key>
+			<string>card</string>
+			<key>view</key>
+			<string>SP_VIEW_STRUCTURE</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>391</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>Update card set pricelowest='36,75' , priceaverage='53,54' , pricefoil='98,95'  where id = 1</string>
+		<string>Update card set pricelowest=36,75 , priceaverage=53,54 , pricefoil=98,95  where id = 1</string>
+		<string>SELECT * FROM `oxarticles` WHERE `oxpic2` NOT LIKE '' AND `OXPARENTID` NOT LIKE '' AND (REPLACE(SUBSTRING_INDEX(oxpic1, '', 2), '.jpg', '') != REPLACE(SUBSTRING_INDEX(oxpic2, '', 2), '.jpg', '') OR (REPLACE(SUBSTRING_INDEX(oxpic2, '', 2), '.jpg', '') != REPLACE(SUBSTRING_INDEX(oxpic3, '', 2), '.jpg', '') AND oxpic3 NOT LIKE '' ))</string>
+		<string>SELECT * FROM `oxarticles` WHERE `oxpic2` NOT LIKE '' AND `OXPARENTID` NOT LIKE '' AND (REPLACE(SUBSTRING_INDEX(oxpic1, '', 2), '.jpg', '') != REPLACE(SUBSTRING_INDEX(oxpic2, '', 2), '.jpg', ''))</string>
+		<string>SELECT * FROM `oxarticles` WHERE `oxpic2` NOT LIKE '' AND `OXPARENTID` NOT LIKE '' AND (REPLACE(SUBSTRING_INDEX(oxpic1, '', 2), '.jpg', '') != REPLACE(SUBSTRING_INDEX(oxpic2, '', 2), '.jpg', '')</string>
+		<string>select * from oxarticles inner join oxobject2attribute on oxarticles.oxid=oxobject2attribute.oxobjectid where oxarticles.oxid not in (select oxobjectid from oxobject2category)</string>
+		<string>select * from oxarticles inner join oxobject2attribute on oxarticles.oxid=oxobject2attribute.oxobjectid where oxid not in (select oxobjectid from oxobject2category)</string>
+		<string>select * from oxarticles inner join oxobject2attribute on oxarticles.oxid=oxobject2attribute.oxobjectid</string>
+		<string>select * from oxarticles where oxid not in (select oxobjectid from oxobject2category) inner join oxobject2attribute on oxarticles.oxid=oxobject2attribute.oxobjectid</string>
+		<string>select * from oxarticles where oxid not in (select oxobjectid from oxobject2category)</string>
+		<string>select * from oxarticles where oxid not in (select oxobjectnid from oxobject2category)</string>
+		<string>select * from oxarticles</string>
+		<string>select * from oxarticles where oxid not in (select oxid from oxobject2category)</string>
+		<string>select * from oxarticles where oxid not in (select oxid from ocobject2category)</string>
+		<string>select * from oxarticles where oxid not in (select oxid from ea4eb49329550caaa1d2044105223721)</string>
+		<string>select oxv_oxarticles_de.oxid, oxv_oxarticles_de.oxparentid, oxv_oxarticles_de.oxvarstock, oxv_oxarticles_de.oxstock, oxv_oxarticles_de.oxstockflag, oxv_oxarticles_de.oxvarcount, oxv_oxarticles_de.oxshopid, oxv_oxarticles_de.oxinsert, oxv_oxarticles_de.oxtimestamp, oxv_oxarticles_de.oxunitquantity, oxv_oxarticles_de.oxactive, oxv_oxarticles_de.oxvarselect, oxv_oxarticles_de.oxprice, oxv_oxarticles_de.oxskipdiscounts, oxv_oxarticles_de.oxvat, oxv_oxarticles_de.oxtemplate, oxv_oxarticles_de.oxvarname, oxv_oxarticles_de.oxtitle, oxv_oxarticles_de.oxpic1, oxv_oxarticles_de.oxpic2, oxv_oxarticles_de.oxpic3, oxv_oxarticles_de.oxicon, oxv_oxarticles_de.oxpic4, oxv_oxarticles_de.oxpic5, oxv_oxarticles_de.oxpic6, oxv_oxarticles_de.oxpic7, oxv_oxarticles_de.oxmanufacturerid, oxv_oxarticles_de.oxrating, oxv_oxarticles_de.oxratingcnt, oxv_oxarticles_de.oxshortdesc, oxv_oxarticles_de.oxartnum, oxv_oxarticles_de.oxtprice, oxv_oxarticles_de.oxisconfigurable, oxv_oxarticles_de.oxsearchkeys, oxv_oxarticles_de.oxweight, oxv_oxarticles_de.oxbundleid, oxv_oxarticles_de.oxthumb from oxv_oxarticles_de LEFT JOIN oxv_oxobject2attribute_de color1 ON (oxobjectid = oxv_oxarticles_de.oxid AND oxattrid = 'dfe6076e1d429c24edcbb2686bb39567') WHERE EXISTS (SELECT * FROM oxv_oxarticles_de as article2  LEFT JOIN oxv_oxobject2attribute_de color2 ON (oxobjectid = article2.oxid AND oxattrid = 'dfe6076e1d429c24edcbb2686bb39567')
+                                 WHERE ( article2.oxparentid = '3001' AND color1.oxvalue = color2.oxvalue AND article2.oxstock &gt; 0 )) AND oxv_oxarticles_de.oxactive = 1  and oxv_oxarticles_de.oxparentid = '3001'  order by oxv_oxarticles_de.oxsort</string>
+		<string>show processlist</string>
+		<string>TRUNCATE TABLE `oxcategories`;
+TRUNCATE TABLE `oxaccessoire2article`;
+TRUNCATE TABLE `oxarticles`;
+TRUNCATE TABLE `oxartextends`;
+TRUNCATE TABLE `oxobject2article`;
+TRUNCATE TABLE `oxobject2attribute`;
+TRUNCATE TABLE `oxobject2category`;
+TRUNCATE TABLE `oxobject2discount`;
+TRUNCATE TABLE `oxuserbasketitems`;
+TRUNCATE TABLE `oxuserbaskets`;
+TRUNCATE TABLE `oxprice2article`;
+TRUNCATE TABLE `oxactions2article`</string>
+		<string>SELECT IF ( cat3.OXTITLE != "", cat3.OXTITLE, IF ( cat2.OXTITLE != "", cat2.OXTITLE, cat1.OXTITLE ) ) AS Category1, IF ( cat3.OXTITLE != "" AND cat2.OXTITLE != "", cat2.OXTITLE, cat1.OXTITLE ) AS Category2, IF ( cat3.OXTITLE != "" AND cat2.OXTITLE != "", cat1.OXTITLE, "" ) AS Category3 FROM oxobject2category AS rel_cat LEFT JOIN oxcategories AS cat1 ON ( rel_cat.OXCATNID = cat1.OXID AND cat1.OXACTIVE = "1" ) LEFT JOIN oxcategories AS cat2 ON ( cat1.OXPARENTID = cat2.OXID AND cat2.OXACTIVE = "1" ) LEFT JOIN oxcategories AS cat3 ON ( cat2.OXPARENTID = cat3.OXID AND cat3.OXACTIVE = "1" ) WHERE rel_cat.OXOBJECTID = "26736" OR rel_cat.OXOBJECTID = "24371" ORDER BY cat1.OXSORT ASC, cat2.OXSORT ASC, cat3.OXSORT ASC</string>
+		<string>SELECT * FROM trader_tournaments where oxid = '1234'</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>5.5.27</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>

@@ -1,0 +1,7 @@
+Name:Political Trickery
+ManaCost:2 U
+Types:Sorcery
+A:SP$ ExchangeControl | Cost$ 2 U | ValidTgts$ Land | TgtPrompt$ Select target land | TargetsFromDifferentZone$ True | TargetMin$ 2 | TargetMax$ 2 | SpellDescription$ Exchange control of target land you control and target land an opponent controls. (This effect lasts indefinitely.)
+SVar:RemAIDeck:True
+SVar:Picture:http://www.wizards.com/global/images/magic/general/political_trickery.jpg
+Oracle:Exchange control of target land you control and target land an opponent controls. (This effect lasts indefinitely.)

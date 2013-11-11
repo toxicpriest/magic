@@ -1,0 +1,8 @@
+Name:Dream Prowler
+ManaCost:2 U U
+Types:Creature Illusion
+PT:1/5
+T:Mode$ Attacks | ValidCard$ Card.Self | Alone$ True | Execute$ TrigPump | TriggerDescription$ CARDNAME can't be blocked as long as it's attacking alone.
+SVar:TrigPump:AB$Pump | Cost$ 0 | Defined$ Self | KW$ HIDDEN Unblockable
+SVar:Picture:http://www.wizards.com/global/images/magic/general/dream_prowler.jpg
+Oracle:Dream Prowler can't be blocked as long as it's attacking alone.

@@ -1,0 +1,10 @@
+Name:Reign of Chaos
+ManaCost:2 R R
+Types:Sorcery
+A:SP$ Destroy | Cost$ 2 R R | ValidTgts$ Plains | TgtPrompt$ Select target Plains | SubAbility$ DBDestroyWhite | SpellDescription$ Choose one - Destroy target Plains and target white creature;
+A:SP$ Destroy | Cost$ 2 R R | ValidTgts$ Island | TgtPrompt$ Select target Island | SubAbility$ DBDestroyBlue | SpellDescription$ or destroy target Island and target blue creature.
+SVar:DBDestroyWhite:DB$Destroy | ValidTgts$ Creature.White | TgtPrompt$ Select target white creature
+SVar:DBDestroyBlue:DB$Destroy | ValidTgts$ Creature.Blue | TgtPrompt$ Select target blue creature
+SVar:RemRandomDeck:True
+SVar:Picture:http://www.wizards.com/global/images/magic/general/reign_of_chaos.jpg
+Oracle:Choose one - Destroy target Plains and target white creature; or destroy target Island and target blue creature.

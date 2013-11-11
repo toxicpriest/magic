@@ -1,0 +1,9 @@
+Name:Active Volcano
+ManaCost:R
+Types:Instant
+A:SP$ Destroy | Cost$ R | ValidTgts$ Permanent.Blue | TgtPrompt$ Select target blue permanent | PrecostDesc$ Choose one - | SpellDescription$ Destroy target blue permanent;
+A:SP$ ChangeZone | Cost$ R | ValidTgts$ Island | TgtPrompt$ Select target Island | Origin$ Battlefield | Destination$ Hand | SpellDescription$ or return target Island to its owner's hand.
+SVar:RemAIDeck:True
+SVar:RemRandomDeck:True
+SVar:Picture:http://www.wizards.com/global/images/magic/general/active_volcano.jpg
+Oracle:Choose one - Destroy target blue permanent; or return target Island to its owner's hand.

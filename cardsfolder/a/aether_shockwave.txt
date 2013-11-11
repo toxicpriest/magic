@@ -1,0 +1,8 @@
+Name:AEther Shockwave
+ManaCost:3 W
+Types:Instant
+A:SP$ TapAll | Cost$ 3 W | ValidCards$ Spirit | PrecostDesc$ Choose one - | SpellDescription$ Tap all Spirits;
+A:SP$ TapAll | Cost$ 3 W | ValidCards$ Creature.nonSpirit | PrecostDesc$ or | SpellDescription$ tap all non-Spirit creatures.
+SVar:RemAIDeck:True
+SVar:Picture:http://www.wizards.com/global/images/magic/general/aether_shockwave.jpg
+Oracle:Choose one - Tap all Spirits; or tap all non-Spirit creatures.

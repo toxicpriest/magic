@@ -1,0 +1,6 @@
+Name:Watchwolf
+ManaCost:W G
+Types:Creature Wolf
+PT:3/3
+SVar:Picture:http://resources.wizards.com/magic/cards/rav/en-us/card83625.jpg
+Oracle:

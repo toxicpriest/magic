@@ -1,0 +1,9 @@
+Name:Flash Flood
+ManaCost:U
+Types:Instant
+A:SP$ Destroy | Cost$ U | ValidTgts$ Permanent.Red | TgtPrompt$ Select target red permanent | PrecostDesc$ Choose one - | SpellDescription$ Destroy target red permanent;
+A:SP$ ChangeZone | Cost$ U | ValidTgts$ Mountain | TgtPrompt$ Select target Mountain | Origin$ Battlefield | Destination$ Hand | SpellDescription$ or return target Mountain to its owner's hand.
+SVar:RemAIDeck:True
+SVar:RemRandomDeck:True
+SVar:Picture:http://www.wizards.com/global/images/magic/general/flash_flood.jpg
+Oracle:Choose one - Destroy target red permanent; or return target Mountain to its owner's hand.
