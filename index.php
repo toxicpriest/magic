@@ -17,6 +17,7 @@ $cards=array();
     $cards[2]["amount"]=4;
 $deck = new deck();
 $deck->addCards($cards);
+$deck->save("test");
 ?>
 <div id="loadScreen"></div>
 
