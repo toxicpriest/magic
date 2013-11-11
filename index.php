@@ -1,26 +1,22 @@
 <?php
 
-include_once "CardFunctions.php";
+include_once "import.php";
+include_once "deck.php";
+include_once "card.php";
 include_once "includes/header.php";
 
-$cardFunction = new CardFunctions();
+//$import = new import();
+//$import->doImport();
+
+$cards=array();
+    $cards[0]["card_id"]="2b6f48ac3e1c531576cb06c03d0cb81b";
+    $cards[0]["amount"]=20;
+    $cards[1]["card_id"]="2f52027abcb61f50aff7aef89dd56dac";
+    $cards[1]["amount"]=4;
+    $cards[2]["card_id"]="dc93aeec5532ad715f08bd3c5939f9c4";
+    $cards[2]["amount"]=4;
+$deck = new deck();
+$deck->addCards($cards);
 ?>
 <div id="loadScreen"></div>
 
-<div id="content">
-    <div id="hoverDiv" class="mainTable"></div>
-    <div id="renderTable"><?php $cardFunction->render(); ?></div>
-</div>
-<div class="footer">
-    <div class="menuBar">
-        <button class="addButton" onclick="addData()">Werte Übertragen</button>
-        <button class="addButton" onclick="refreshData()">REFRESH</button>
-
-        <label for="newURL">
-            Neuen Link hinzufügen:
-        </label>
-        <input type="text" id="newURL">
-        <button onclick="addCard()">Hinzufügen</button>
-        <button onclick="deleteAll()">Alle Karten entfernen!</button>
-    </div>
-</div>
