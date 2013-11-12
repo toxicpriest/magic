@@ -13,6 +13,7 @@ class player {
    public $handcards="";
    public $firstdraw=true;
    public $playerHand=array();
+   public $selectedDeck= null;
 
 
    public function login($name,$password){
@@ -68,5 +69,10 @@ class player {
    }
    public function exileCard($cardid,&$game){
         $game->addCard($this->playerId,$cardid,"exile");
+   }
+   public function selectDeck($deckname){
+       $deck=new deck();
+       $deck->load(true,$deckname);
+       $this->selectedDeck=$deck;
    }
 }

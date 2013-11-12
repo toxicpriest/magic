@@ -7,12 +7,18 @@ include_once "library.php";
 include_once "includes/header.php";
 include_once "player.php";
 include_once "db.php";
+include_once "deck.php";
 
 //$import = new import();
 //$import->doImport();
 
 $player = new player();
+$player2 = new player();
+$player->login("pete","1234");
 $player->login("bieti","toxic666");
+
+
+/*
 $cards=array();
     $cards[0]["card_id"]="2b6f48ac3e1c531576cb06c03d0cb81b";
     $cards[0]["amount"]=20;
@@ -23,6 +29,11 @@ $cards=array();
 $deck = new deck();
 $deck->addCards($cards);
 $deck->save("test4",$player->playerId);
+*/
+$player->selectedDeck("test4");
+$player2->selectedDeck("test4");
+
+
 $library=new library();
 $library->buildLibrary($deck->deckId);
 $library->shuffleLibrary();

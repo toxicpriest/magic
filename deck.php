@@ -32,15 +32,20 @@ class deck {
            }
        }
     }
-    public function load($deckid){
+    public function load($deckid,$deckname=null){
         $db = new db();
-        $sqlSelect="Select * from decks where deck_id='".$deckid."'";
+        if($deckname!=null){
+            $sqlSelect="Select * from decks where deck_name='".$deckname."'";
+        }
+        else{
+            $sqlSelect="Select * from decks where deck_id='".$deckid."'";
+        }
         $result = mysql_query($sqlSelect, $db->db) or die("SQL-Statement konnte nicht abgesetzt werden!2");
         while($row = mysql_fetch_object($result)){
                    $this->deckId=$row->deck_id;
                    $this->deckname=$row->deck_name;
         }
-        $sqlSelectContents="Select * from deck_contents where deck_id='".$deckid."'";
+        $sqlSelectContents="Select * from deck_contents where deck_id='".$this->deckId."'";
         $result2 = mysql_query($sqlSelectContents, $db->db) or die("SQL-Statement konnte nicht abgesetzt werden!2");
         $this->deck = array();
         while($row = mysql_fetch_object($result2)){
