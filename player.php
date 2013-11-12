@@ -16,7 +16,7 @@ class player {
 
 
    public function login($name,$password){
-       $db = new dbc();
+       $db = new db();
        $sqlSelect="Select * from player where player_nick='".$name."' and player_password='".$password."'";
        $result = mysql_query($sqlSelect, $db->db) or die("SQL-Statement konnte nicht abgesetzt werden!2");
        if($result){
@@ -28,6 +28,10 @@ class player {
        $db->execute("INSERT INTO lounge(player_id,player_nick,player_state) VALUES('".$this->playerId."','".$this->playerName."','active');");
    }
    public function logout(){
+       if($this->playerId != ""){
+           $db = new db();
+           $db->execute("Delete from lounge where player_id='".$this->playerId."';");
+       }
 
    }
 
@@ -56,5 +60,13 @@ class player {
            }
        }
    }
-
+   public function playCard($cardid,&$game){
+       $game->addCard($this->playerId,$cardid,"battlefield");
+   }
+   public function discardCard($cardid,&$game){
+        $game->addCard($this->playerId,$cardid,"graveyard");
+   }
+   public function exileCard($cardid,&$game){
+        $game->addCard($this->playerId,$cardid,"exile");
+   }
 }

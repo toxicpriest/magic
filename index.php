@@ -6,6 +6,7 @@ include_once "card.php";
 include_once "library.php";
 include_once "includes/header.php";
 include_once "player.php";
+include_once "db.php";
 
 //$import = new import();
 //$import->doImport();
@@ -32,6 +33,7 @@ echo "<img height='30px' src='".$cardInHand->picture."'>";
 }
 $player->mulligan($library);
 $card=$library->drawCard();
+$player->logout();
 $test="new";
 ?>
 <div id="loadScreen"></div>

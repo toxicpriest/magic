@@ -6,7 +6,7 @@
  * Time: 12:59
  * To change this template use File | Settings | File Templates.
  */ 
-class dbc {
+class db {
     public $db;
 
     function __construct(){
