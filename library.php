@@ -9,6 +9,10 @@
 class library{
   public $library= array();
 
+  function __construct($deckid){
+    $this->buildLibrary($deckid);
+  }
+
   public function buildLibrary($deckid){
   $deck = new deck();
   $deck->load($deckid);
@@ -20,7 +24,6 @@ class library{
           $this->library[]=$card;
       }
   }
-      $test="test";
   }
   public function shuffleLibrary(){
       shuffle($this->library);

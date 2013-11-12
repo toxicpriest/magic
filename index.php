@@ -8,6 +8,7 @@ include_once "includes/header.php";
 include_once "player.php";
 include_once "db.php";
 include_once "deck.php";
+include_once "game.php";
 
 //$import = new import();
 //$import->doImport();
@@ -15,7 +16,7 @@ include_once "deck.php";
 $player = new player();
 $player2 = new player();
 $player->login("pete","1234");
-$player->login("bieti","toxic666");
+$player2->login("bieti","toxic666");
 
 
 /*
@@ -30,21 +31,12 @@ $deck = new deck();
 $deck->addCards($cards);
 $deck->save("test4",$player->playerId);
 */
-$player->selectedDeck("test4");
-$player2->selectedDeck("test4");
+$player->selectDeck("The Gate");
+$player2->selectDeck("The Gate");
+
+$game = new game($player,$player2);
 
 
-$library=new library();
-$library->buildLibrary($deck->deckId);
-$library->shuffleLibrary();
-$player->mulligan($library);
-
-foreach($player->playerHand as $cardInHand){
-echo "<img height='30px' src='".$cardInHand->picture."'>";
-}
-$player->mulligan($library);
-$card=$library->drawCard();
-$player->logout();
 $test="new";
 ?>
 <div id="loadScreen"></div>

@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.27)
 # Datenbank: mtg_wars
-# Erstellungsdauer: 2013-11-12 11:42:31 +0000
+# Erstellungsdauer: 2013-11-12 16:12:39 +0000
 # ************************************************************
 
 
@@ -13413,11 +13413,11 @@ DROP TABLE IF EXISTS `cards_in_game`;
 
 CREATE TABLE `cards_in_game` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `game_id` int(11) DEFAULT NULL,
-  `card_id` int(11) DEFAULT NULL,
-  `player_id` int(11) DEFAULT NULL,
-  `zone` int(11) DEFAULT NULL,
-  `state` int(11) DEFAULT NULL,
+  `game_id` varchar(255) NOT NULL DEFAULT '',
+  `card_id` varchar(255) NOT NULL DEFAULT '',
+  `player_id` varchar(255) NOT NULL DEFAULT '',
+  `zone` varchar(255) NOT NULL DEFAULT '',
+  `state` varchar(255) DEFAULT 'untapped',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -13441,9 +13441,20 @@ LOCK TABLES `deck_contents` WRITE;
 
 INSERT INTO `deck_contents` (`contents_id`, `card_stock`, `deck_id`, `card_id`)
 VALUES
-	(61,20,'528212fed7a8f','2b6f48ac3e1c531576cb06c03d0cb81b'),
-	(62,4,'528212fed7a8f','2f52027abcb61f50aff7aef89dd56dac'),
-	(63,4,'528212fed7a8f','dc93aeec5532ad715f08bd3c5939f9c4');
+	(67,16,'52824327124fe','2b6f48ac3e1c531576cb06c03d0cb81b'),
+	(68,4,'52824327124fe','2f52027abcb61f50aff7aef89dd56dac'),
+	(69,4,'52824327124fe','dc93aeec5532ad715f08bd3c5939f9c4'),
+	(70,4,'52824327124fe','b4dbd34850e4e7dd49abe82fb1835ee5'),
+	(71,4,'52824327124fe','62d6df1d7727f4c79a28aeea6469aa19'),
+	(72,4,'52824327124fe','4df23ae276174f27873fe03088eda17b'),
+	(73,4,'52824327124fe','fc4f52c6e4075e300d96f2a7b81e5d48'),
+	(74,4,'52824327124fe','0f0fcde35bab25d19cafbf6fc3b4204b'),
+	(75,4,'52824327124fe','bc63964431a28afed2d30931244d18fc'),
+	(76,2,'52824327124fe','551b2d7d8bf576ffc53ec2c00ec18499'),
+	(77,4,'52824327124fe','b990574b212111be3e5f84c8e08b15f1'),
+	(78,2,'52824327124fe','e901c8555eeaec3a189f4eba8f12db5f'),
+	(79,2,'52824327124fe','1a062f31ea556ad5c7553e1acf0f8545'),
+	(80,2,'52824327124fe','2b2170289751ff315b40c69ad288ab22');
 
 /*!40000 ALTER TABLE `deck_contents` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -13471,7 +13482,7 @@ LOCK TABLES `decks` WRITE;
 
 INSERT INTO `decks` (`deck_id`, `deck_name`, `modern_legal`, `legacy_legal`, `vintage_legal`, `player_id`, `standard_legal`)
 VALUES
-	('528212fed7a8f','test4',1,1,1,1,1);
+	('52824327124fe','The Gate',1,1,1,1,1);
 
 /*!40000 ALTER TABLE `decks` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -13483,13 +13494,57 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `game`;
 
 CREATE TABLE `game` (
-  `game_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `player_id_1` int(11) DEFAULT NULL,
-  `player_id_2` int(11) DEFAULT NULL,
-  `game_state` int(11) DEFAULT NULL,
+  `game_id` varchar(255) NOT NULL DEFAULT '',
+  `player_id_1` varchar(255) NOT NULL DEFAULT '',
+  `player_id_2` varchar(255) NOT NULL DEFAULT '',
+  `game_state` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`game_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
+
+# Export von Tabelle lounge
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `lounge`;
+
+CREATE TABLE `lounge` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `player_id` varchar(255) DEFAULT NULL,
+  `player_state` varchar(255) DEFAULT NULL,
+  `player_msg` varchar(255) DEFAULT NULL,
+  `player_nick` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `lounge` WRITE;
+/*!40000 ALTER TABLE `lounge` DISABLE KEYS */;
+
+INSERT INTO `lounge` (`id`, `player_id`, `player_state`, `player_msg`, `player_nick`)
+VALUES
+	(10,'2','active',NULL,'pete'),
+	(11,'1','active',NULL,'bieti'),
+	(12,'2','active',NULL,'pete'),
+	(13,'1','active',NULL,'bieti'),
+	(14,'2','active',NULL,'pete'),
+	(15,'1','active',NULL,'bieti'),
+	(16,'2','active',NULL,'pete'),
+	(17,'1','active',NULL,'bieti'),
+	(18,'2','active',NULL,'pete'),
+	(19,'1','active',NULL,'bieti'),
+	(20,'2','active',NULL,'pete'),
+	(21,'1','active',NULL,'bieti'),
+	(22,'2','active',NULL,'pete'),
+	(23,'1','active',NULL,'bieti'),
+	(24,'2','active',NULL,'pete'),
+	(25,'1','active',NULL,'bieti'),
+	(26,'2','active',NULL,'pete'),
+	(27,'1','active',NULL,'bieti'),
+	(28,'2','active',NULL,'pete'),
+	(29,'1','active',NULL,'bieti');
+
+/*!40000 ALTER TABLE `lounge` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Export von Tabelle player
@@ -13511,7 +13566,8 @@ LOCK TABLES `player` WRITE;
 
 INSERT INTO `player` (`player_id`, `player_fname`, `player_lname`, `player_nick`, `player_password`)
 VALUES
-	(1,'Marcel','Bietenbeck','bieti','toxic666');
+	(1,'Marcel','Bietenbeck','bieti','toxic666'),
+	(2,'Peter','Bauer','pete','1234');
 
 /*!40000 ALTER TABLE `player` ENABLE KEYS */;
 UNLOCK TABLES;

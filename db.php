@@ -15,6 +15,6 @@ class db {
         $this->db=$con;
     }
     public function execute($sql){
-        mysql_query($sql, $this->db) or die("SQL-Statement konnte nicht abgesetzt werden!3");
+        mysql_query($sql, $this->db) or die("SQL-Statement konnte nicht abgesetzt werden!<br>Error in :".$sql);
     }
 }

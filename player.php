@@ -75,4 +75,8 @@ class player {
        $deck->load(true,$deckname);
        $this->selectedDeck=$deck;
    }
+   public function askPlayer($question){
+
+       return true;
+   }
 }
