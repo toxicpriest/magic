@@ -37,7 +37,8 @@ class deck {
         mysql_select_db("mtg_wars", $con) or die("Konnte die Datenbank nicht selecten!1");
         $sqlSelect="Select deck_name from decks where deck_id='".$deckid."'";
     }
-    public function deleteDeck(){
+    public function deleteDeck($deckId=null){
+        $deckId=$this->deckId;
 
     }
     public function shuffle(){
