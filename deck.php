@@ -33,16 +33,15 @@ class deck {
        }
     }
     public function load($deckid){
-        $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
-        mysql_select_db("mtg_wars", $con) or die("Konnte die Datenbank nicht selecten!1");
+        $db = new db();
         $sqlSelect="Select * from decks where deck_id='".$deckid."'";
-        $result = mysql_query($sqlSelect, $con) or die("SQL-Statement konnte nicht abgesetzt werden!2");
+        $result = mysql_query($sqlSelect, $db->db) or die("SQL-Statement konnte nicht abgesetzt werden!2");
         while($row = mysql_fetch_object($result)){
                    $this->deckId=$row->deck_id;
                    $this->deckname=$row->deck_name;
         }
         $sqlSelectContents="Select * from deck_contents where deck_id='".$deckid."'";
-        $result2 = mysql_query($sqlSelectContents, $con) or die("SQL-Statement konnte nicht abgesetzt werden!2");
+        $result2 = mysql_query($sqlSelectContents, $db->db) or die("SQL-Statement konnte nicht abgesetzt werden!2");
         $this->deck = array();
         while($row = mysql_fetch_object($result2)){
             $this->deck[$row->card_id]=$row->card_stock;
@@ -53,41 +52,31 @@ class deck {
         if(!$deckId){
             if(count($this->deckId) > 0){
                 $deckId=$this->deckId;
-                $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
-                mysql_select_db("mtg_wars", $con) or die("Konnte die Datenbank nicht selecten!1");
-                $sqlDelete="Delete from decks where deck_id='".$deckId."'";
-                mysql_query($sqlDelete, $con) or die("SQL-Statement konnte nicht abgesetzt werden!3");
-                $sqlDelete2="Delete from deck_contents where deck_id='".$deckId."'";
-                mysql_query($sqlDelete2, $con) or die("SQL-Statement konnte nicht abgesetzt werden!3");
+                $db=new db();
+                $db->execute("Delete from decks where deck_id='".$deckId."';");
+                $db->execute("Delete from deck_contents where deck_id='".$deckId."';");
             }
         }
         else{
-            $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
-            mysql_select_db("mtg_wars", $con) or die("Konnte die Datenbank nicht selecten!1");
-            $sqlDelete="Delete from decks where deck_id='".$deckId."'";
-            mysql_query($sqlDelete, $con) or die("SQL-Statement konnte nicht abgesetzt werden!3");
-            $sqlDelete2="Delete from deck_contents where deck_id='".$deckId."'";
-            mysql_query($sqlDelete2, $con) or die("SQL-Statement konnte nicht abgesetzt werden!3");
+            $db = new db();
+            $db->execute("Delete from decks where deck_id='".$deckId."';");
+            $db->execute("Delete from deck_contents where deck_id='".$deckId."';");
         }
     }
 
     public function save($title=null,$playerid){
-        $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
-        mysql_select_db("mtg_wars", $con) or die("Konnte die Datenbank nicht selecten!1");
+        $db = new db();
         $uniqid = uniqid();
 
         if($this->deckId == "" || $this->deckId == null){
-            $sqlInsert = "INSERT INTO decks(deck_id,deck_name,player_id) VALUES('".$uniqid."','".$title."','".$playerid."');";
-            mysql_query($sqlInsert, $con) or die("SQL-Statement konnte nicht abgesetzt werden!3");
+            $db->execute("INSERT INTO decks(deck_id,deck_name,player_id) VALUES('".$uniqid."','".$title."','".$playerid."');");
             $this->deckId=$uniqid;
         }
         else{
-            $sqlDelete = "Delete from deck_contents where deck_id='".$this->deckId."';";
-            mysql_query($sqlDelete, $con) or die("SQL-Statement konnte nicht abgesetzt werden!3");
+            $db->execute("Delete from deck_contents where deck_id='".$this->deckId."';");
         }
         foreach($this->deck as $cardID => $ammount){
-            $sqlInsert = "INSERT INTO deck_contents(card_stock,deck_id,card_id) VALUES('".$ammount."','".$uniqid."','".$cardID."');";
-            mysql_query($sqlInsert, $con) or die("SQL-Statement konnte nicht abgesetzt werden!3");
+            $db->execute("INSERT INTO deck_contents(card_stock,deck_id,card_id) VALUES('".$ammount."','".$uniqid."','".$cardID."');");
         }
     }
 }

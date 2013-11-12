@@ -26,9 +26,7 @@ class import{
                        $newFolder = $verzeichnis."/".$datei;
                        $this->forgeImport($newFolder);
                     }
-
                     else
-
                     {
                         $file=$verzeichnis."/".$datei;
                         $cardData = file("$file");
@@ -61,16 +59,11 @@ class import{
             closedir($handle);
         }
     public function importIntoDB(){
-        $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
-        mysql_select_db("mtg_wars", $con) or die("Konnte die Datenbank nicht selecten!1");
-
-        $sqlDelete = "DELETE FROM Cards;";
-        mysql_query($sqlDelete, $con) or die("SQL-Statement konnte nicht abgesetzt werden!2");
+        $db= new db();
+        $db->execute("DELETE FROM Cards;");
 
         foreach($this->CardDATA as $cardData){
-            $sqlInsert = "INSERT INTO Cards(card_id,card_name, card_mana, card_type, card_picture) VALUES(\"".md5($cardData['Name'])."\",\"".$cardData['Name']."\",\"".$cardData['ManaCost']."\",\"".$cardData['Types']."\",\"".$cardData['Picture']."\");";
-            mysql_query($sqlInsert, $con)
-            or die("SQL-Statement konnte nicht abgesetzt werden!3".$cardData['Name']);
+            $db->execute("INSERT INTO Cards(card_id,card_name, card_mana, card_type, card_picture) VALUES(\"".md5($cardData['Name'])."\",\"".$cardData['Name']."\",\"".$cardData['ManaCost']."\",\"".$cardData['Types']."\",\"".$cardData['Picture']."\");");
         }
     }
     public function doImport(){

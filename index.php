@@ -11,7 +11,7 @@ include_once "player.php";
 //$import->doImport();
 
 $player = new player();
-$player->load("bieti","toxic666");
+$player->login("bieti","toxic666");
 $cards=array();
     $cards[0]["card_id"]="2b6f48ac3e1c531576cb06c03d0cb81b";
     $cards[0]["amount"]=20;

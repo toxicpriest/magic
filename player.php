@@ -14,17 +14,21 @@ class player {
    public $firstdraw=true;
    public $playerHand=array();
 
-   public function load($name,$password){
-       $con = mysql_connect("127.0.0.1", "root", "") or die("Konnte keine Verbindung aufbauen!");
-       mysql_select_db("mtg_wars", $con) or die("Konnte die Datenbank nicht selecten!1");
+
+   public function login($name,$password){
+       $db = new dbc();
        $sqlSelect="Select * from player where player_nick='".$name."' and player_password='".$password."'";
-       $result = mysql_query($sqlSelect, $con) or die("SQL-Statement konnte nicht abgesetzt werden!2");
+       $result = mysql_query($sqlSelect, $db->db) or die("SQL-Statement konnte nicht abgesetzt werden!2");
        if($result){
            while($row = mysql_fetch_object($result)){
                       $this->playerName=$row->player_nick;
                       $this->playerId=$row->player_id;
            }
        }
+       $db->execute("INSERT INTO lounge(player_id,player_nick,player_state) VALUES('".$this->playerId."','".$this->playerName."','active');");
+   }
+   public function logout(){
+
    }
 
    public function reduceLife($n){
