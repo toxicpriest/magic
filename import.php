@@ -37,8 +37,15 @@ class import{
                             $valName=substr($dataline,0,strpos($dataline,":"));
                             $value=str_replace('"','\"',str_replace("\n","",str_replace("\r","",substr($dataline,strpos($dataline,":")+1,strlen($dataline)))));
                             if($valName == "SVar"){
+
                                 $valName=substr($value,0,strpos($value,":"));
                                 $value = substr($value,strpos($value,":")+1,strlen($value));
+                                if($valName=="Picture"){
+                                  $endPos=strpos($value,".jpg")+4;
+                                  if($endPos!=false){
+                                    $value=substr($value,0,$endPos);
+                                  }
+                                }
                             }
                             $cardDataArray[$valName] = $value;
                         }
@@ -63,7 +70,7 @@ class import{
         foreach($this->CardDATA as $cardData){
             $sqlInsert = "INSERT INTO Cards(card_id,card_name, card_mana, card_type, card_picture) VALUES(\"".md5($cardData['Name'])."\",\"".$cardData['Name']."\",\"".$cardData['ManaCost']."\",\"".$cardData['Types']."\",\"".$cardData['Picture']."\");";
             mysql_query($sqlInsert, $con)
-            or die("SQL-Statement konnte nicht abgesetzt werden!3");
+            or die("SQL-Statement konnte nicht abgesetzt werden!3".$cardData['Name']);
         }
     }
     public function doImport(){

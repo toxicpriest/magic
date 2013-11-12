@@ -3,11 +3,15 @@
 include_once "import.php";
 include_once "deck.php";
 include_once "card.php";
+include_once "library.php";
 include_once "includes/header.php";
+include_once "player.php";
 
 //$import = new import();
 //$import->doImport();
 
+$player = new player();
+$player->load("bieti","toxic666");
 $cards=array();
     $cards[0]["card_id"]="2b6f48ac3e1c531576cb06c03d0cb81b";
     $cards[0]["amount"]=20;
@@ -17,7 +21,18 @@ $cards=array();
     $cards[2]["amount"]=4;
 $deck = new deck();
 $deck->addCards($cards);
-$deck->save("test");
+$deck->save("test4",$player->playerId);
+$library=new library();
+$library->buildLibrary($deck->deckId);
+$library->shuffleLibrary();
+$player->mulligan($library);
+
+foreach($player->playerHand as $cardInHand){
+echo "<img height='30px' src='".$cardInHand->picture."'>";
+}
+$player->mulligan($library);
+$card=$library->drawCard();
+$test="new";
 ?>
 <div id="loadScreen"></div>
 
