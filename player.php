@@ -79,4 +79,7 @@ class player {
 
        return true;
    }
+   public function rollDice($n=20){
+      return rand(1,$n);
+   }
 }

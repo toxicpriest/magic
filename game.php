@@ -28,6 +28,13 @@ class game
     public function startGame(){
         $this->library_1->shuffleLibrary();
         $this->library_2->shuffleLibrary();
+        if($this->player1->rollDice() > $this->player1->rollDice()){
+            $db = new db();
+            $db->execute("UPDATE game SET game_state='p1_start' WHERE game_id='".$this->gameid."';");
+        }else{
+            $db = new db();
+            $db->execute("UPDATE game SET game_state='p2_start' WHERE game_id='".$this->gameid."';");
+        }
         $this->player1->mulligan($this->library_1);
         $this->player2->mulligan($this->library_2);
     }
@@ -37,7 +44,7 @@ class game
     }
     public function moveCard($id,$zone){
        $db = new db();
-       $db->execute("UPDATE cards_in_game zone='".$zone."' WHERE id='".$id."';");
+       $db->execute("UPDATE cards_in_game SET zone='".$zone."' WHERE id='".$id."';");
     }
     public function getGraveyard(){
     }
@@ -45,5 +52,4 @@ class game
     }
     public function getExile(){
     }
-
 }

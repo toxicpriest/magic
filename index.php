@@ -34,6 +34,15 @@ $deck->save("test4",$player->playerId);
 $player->selectDeck("MUD");
 $player2->selectDeck("The Gate");
 $game = new game($player,$player2);
+echo"<div class='player1'>";
+foreach($game->player1->playerHand as $card){
+echo "<img src='".$card->picture."' height='80px'>";
+}
+ echo "</div><br><div class='player2'>";
+foreach($game->player2->playerHand as $card){
+echo "<img src='".$card->picture."' height='80px'>";
+}
+echo "</div>";
 ?>
 
 
