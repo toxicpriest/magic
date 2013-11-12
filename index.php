@@ -31,13 +31,9 @@ $deck = new deck();
 $deck->addCards($cards);
 $deck->save("test4",$player->playerId);
 */
-$player->selectDeck("The Gate");
+$player->selectDeck("MUD");
 $player2->selectDeck("The Gate");
-
 $game = new game($player,$player2);
-
-
-$test="new";
 ?>
-<div id="loadScreen"></div>
+
 

@@ -28,7 +28,8 @@ class game
     public function startGame(){
         $this->library_1->shuffleLibrary();
         $this->library_2->shuffleLibrary();
-        $test = "stop";
+        $this->player1->mulligan($this->library_1);
+        $this->player2->mulligan($this->library_2);
     }
     public function addCard($player_id,$card_id,$zone){
        $db = new db();

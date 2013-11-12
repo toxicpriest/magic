@@ -32,10 +32,10 @@ class deck {
            }
        }
     }
-    public function load($deckid,$deckname=null){
+    public function load($deckid,$deckname=null,$playerid=null){
         $db = new db();
         if($deckname!=null){
-            $sqlSelect="Select * from decks where deck_name='".$deckname."'";
+            $sqlSelect="Select * from decks where deck_name='".$deckname."' and player_id='".$playerid."'";
         }
         else{
             $sqlSelect="Select * from decks where deck_id='".$deckid."'";

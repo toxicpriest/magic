@@ -72,7 +72,7 @@ class player {
    }
    public function selectDeck($deckname){
        $deck=new deck();
-       $deck->load(true,$deckname);
+       $deck->load(true,$deckname,$this->playerId);
        $this->selectedDeck=$deck;
    }
    public function askPlayer($question){
