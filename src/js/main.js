@@ -1,3 +1,44 @@
+function loadUserList() {
+$.ajax({
+type: "POST",
+url: "db_handler.php?action=userlist",
+data: {  action: "userlist"}
+})
+.done(function( user ) {
+$("#user_list").html(user);
+});
+  }
+  setInterval("loadUserList('reload')",2000);
+
+function loadXMLDoc(action, player) {
+      if (action == "add") {
+          var msg=document.getElementById("textbox").value;
+          if(msg ==""){
+              alert("Bitte Nachricht eingeben -.-")
+          }
+          else{
+              $.ajax({
+              type: "POST",
+              url: "db_handler.php",
+              data: { action: action, player: player, msg: msg}
+              })
+              .done(function( chatData ) {
+              $("#ajax_chat").html(chatData);
+              });
+          }
+      }
+      else {
+          $.ajax({
+                    type: "POST",
+                    url: "db_handler.php",
+                    data: { action: action}
+                    })
+                    .done(function( chatData ) {
+                    $("#ajax_chat").html(chatData);
+                    });
+      }
+  }
+  //setInterval("loadXMLDoc('reload')",3000);
 function addData(){
       showLoadScreen();
     $.ajax({url:"cardsHandler.php?fn=addNewPrices",type:"POST",success:function(result){

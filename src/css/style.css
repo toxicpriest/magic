@@ -210,3 +210,30 @@ span.tdinfo_lower {
 {
   border-bottom: none;
 }
+.chat {
+    border: 1px dotted #000000;
+    background: none repeat scroll 0 0 #BBBBBB;
+    height: 65%;
+    width: 75%;
+}
+.user {
+    background: none repeat scroll 0 0 #BBBBBB;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 23%;
+}
+.textfield_chat {
+    background: none repeat scroll 0 0 #BBBBBB;
+    bottom: 0;
+    height: 30%;
+    position: absolute;
+    width: 75%;
+}
+#ajax_chat{
+    height:98%;
+    margin-top: 5px;
+    overflow: auto;
+    padding: 0 5px;
+}

@@ -14,12 +14,12 @@ include_once "game.php";
 //$import->doImport();
 
 $player = new player();
-$player2 = new player();
+/*$player2 = new player();
 $player->login("pete","1234");
 $player2->login("bieti","toxic666");
 
 
-/*
+
 $cards=array();
     $cards[0]["card_id"]="2b6f48ac3e1c531576cb06c03d0cb81b";
     $cards[0]["amount"]=20;
@@ -31,7 +31,7 @@ $deck = new deck();
 $deck->addCards($cards);
 $deck->save("test4",$player->playerId);
 */
-$player->selectDeck("MUD");
+/*$player->selectDeck("MUD");
 $player2->selectDeck("The Gate");
 $game = new game($player,$player2);
 echo"<div class='player1'>";
@@ -42,7 +42,8 @@ echo "<img src='".$card->picture."' height='80px'>";
 foreach($game->player2->playerHand as $card){
 echo "<img src='".$card->picture."' height='80px'>";
 }
-echo "</div>";
+echo "</div>";*/
+include_once "lobby.php";
 ?>
 
 

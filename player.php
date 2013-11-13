@@ -19,7 +19,7 @@ class player {
    public function login($name,$password){
        $db = new db();
        $sqlSelect="Select * from player where player_nick='".$name."' and player_password='".$password."'";
-       $result = mysql_query($sqlSelect, $db->db) or die("SQL-Statement konnte nicht abgesetzt werden!2");
+       $result = mysql_query($sqlSelect, $db->db) or die("SQL-Statement konnte nicht abgesetzt werden!");
        if($result){
            while($row = mysql_fetch_object($result)){
                       $this->playerName=$row->player_nick;
