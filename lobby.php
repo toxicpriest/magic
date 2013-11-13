@@ -10,6 +10,13 @@ if(isset($_POST['nick']) && isset($_POST['password'])){
 $nick= $_POST['nick'];
 $password= $_POST['password'];
 $player->login($nick,$password);
+    if($player->playerName){
+        $_SESSION['nick']=$nick;
+        $_SESSION['password']=$password;
+    }
+}
+elseif(isset($_SESSION['nick']) && isset($_SESSION['password'])){
+    $player->login($_SESSION['nick'],$_SESSION['password']);
 }
 
 ?>

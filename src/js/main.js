@@ -38,7 +38,7 @@ function loadXMLDoc(action, player) {
                     });
       }
   }
-  //setInterval("loadXMLDoc('reload')",3000);
+  setInterval("loadXMLDoc('reload')",3000);
 function addData(){
       showLoadScreen();
     $.ajax({url:"cardsHandler.php?fn=addNewPrices",type:"POST",success:function(result){

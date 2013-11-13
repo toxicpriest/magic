@@ -26,7 +26,14 @@ class player {
                       $this->playerId=$row->player_id;
            }
        }
-       $db->execute("INSERT INTO lounge(player_id,player_nick,player_state) VALUES('".$this->playerId."','".$this->playerName."','active');");
+       $sqlSelect="Select * from lounge where player_id='".$this->playerId."';";
+       $result = mysql_query($sqlSelect, $db->db) or die("SQL-Statement konnte nicht abgesetzt werden!");
+              if($result){
+                  $db->execute("UPDATE lounge SET player_state='active' WHERE player_id='".$this->playerId."';");
+              }
+              else{
+                  $db->execute("INSERT INTO lounge(player_id,player_nick,player_state) VALUES('".$this->playerId."','".$this->playerName."','active');");
+              }
    }
    public function logout(){
        if($this->playerId != ""){

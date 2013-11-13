@@ -9,7 +9,7 @@ include_once "player.php";
 include_once "db.php";
 include_once "deck.php";
 include_once "game.php";
-
+session_start();
 //$import = new import();
 //$import->doImport();
 
