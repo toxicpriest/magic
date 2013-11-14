@@ -49,7 +49,13 @@ function checkInviteState() {
     })
         .done(function (returnValue) {
             if(returnValue!="" && returnValue!=null){
-                alert(returnValue);
+                var obj = $.parseJSON(returnValue);
+                if(obj.msg == "cancel"){
+                    alert("The other Player has diclined ur Game!");
+                }
+                if(obj.msg == "game"){
+                    window.location.href = "mtggame.php";
+                }
             }
         });
 }
@@ -71,7 +77,9 @@ function answerPlayer(playerID,enemyID,actionID,answer) {
         data: {  action: "answerPlayer",playerID:playerID,enemyID:enemyID,actionID:actionID,answer:answer}
     })
         .done(function () {
-            alert("answered");
+            if(answer == "yes"){
+                window.location.href = "mtggame.php";
+            }
         });
 }
 function loadUserList() {
@@ -172,11 +180,9 @@ function deleteAll() {
     }});
 }
 $(document).ready(function () {
-
     $('tbody tr').hover(function () {
         $(this).addClass('odd');
     }, function () {
         $(this).removeClass('odd');
     });
-
 });

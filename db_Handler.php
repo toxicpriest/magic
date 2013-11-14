@@ -50,14 +50,16 @@ if ($action == "check_invite_state") {
         while ($row = mysql_fetch_object($actions)) {
             $state=$row->status;
             $action_id=$row->id;
+            $player_id=$row->player_id;
+            $invited_id=$row->invited_id;
         }
         if($state == "canceled_wait"){
             $db->execute("UPDATE actions set status='canceled' where id='".$action_id."';");
-            $msg="canceled";
+            $msg='{"msg":"cancel","enemyID" :"'.$invited_id.'","playerID" :"'.$player_id.'"}';
         }
         elseif($state == "rdy_for_start"){
             $db->execute("UPDATE actions set status='in_game' where id='".$action_id."';");
-            $msg="game";
+            $msg='{"msg":"game","enemyID" :"'.$invited_id.'","playerID" :"'.$player_id.'"}';
         }
         if($action_id!=""){
             echo $msg;
