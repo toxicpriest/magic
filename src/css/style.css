@@ -237,3 +237,13 @@ span.tdinfo_lower {
     overflow: auto;
     padding: 0 5px;
 }
+#dialog{
+    height:200px;
+    width:30%;
+    top:40%;
+    left:35%;
+    position: absolute;
+    z-index: 1;
+    background: #777;
+    display:none;
+}

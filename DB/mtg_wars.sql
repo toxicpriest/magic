@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.27)
 # Datenbank: mtg_wars
-# Erstellungsdauer: 2013-11-12 16:12:39 +0000
+# Erstellungsdauer: 2013-11-14 08:00:15 +0000
 # ************************************************************
 
 
@@ -13414,13 +13414,178 @@ DROP TABLE IF EXISTS `cards_in_game`;
 CREATE TABLE `cards_in_game` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `game_id` varchar(255) NOT NULL DEFAULT '',
-  `card_id` varchar(255) NOT NULL DEFAULT '',
+  `object` varchar(255) NOT NULL DEFAULT '',
   `player_id` varchar(255) NOT NULL DEFAULT '',
   `zone` varchar(255) NOT NULL DEFAULT '',
-  `state` varchar(255) DEFAULT 'untapped',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `cards_in_game` WRITE;
+/*!40000 ALTER TABLE `cards_in_game` DISABLE KEYS */;
+
+INSERT INTO `cards_in_game` (`id`, `game_id`, `object`, `player_id`, `zone`)
+VALUES
+	(5,'528343c81473a','Tzo3OiJsaWJyYXJ5IjoxOntzOjc6ImxpYnJhcnkiO2E6OTp7aTowO086NDoiY2FyZCI6NDp7czo0OiJuYW1lIjtzOjE2OiJDaXR5IG9mIFRyYWl0b3JzIjtzOjQ6Im1hbmEiO3M6Nzoibm8gY29zdCI7czo0OiJ0eXBlIjtzOjQ6IkxhbmQiO3M6NzoicGljdHVyZSI7czo3MToiaHR0cDovL3d3dy53aXphcmRzLmNvbS9nbG9iYWwvaW1hZ2V','2','LIBRARY'),
+	(6,'528343c81473a','Tzo3OiJsaWJyYXJ5IjoxOntzOjc6ImxpYnJhcnkiO2E6NTM6e2k6MDtPOjQ6ImNhcmQiOjQ6e3M6NDoibmFtZSI7czo1OiJTd2FtcCI7czo0OiJtYW5hIjtzOjc6Im5vIGNvc3QiO3M6NDoidHlwZSI7czoxNjoiQmFzaWMgTGFuZCBTd2FtcCI7czo3OiJwaWN0dXJlIjtzOjY0OiJodHRwOi8vcmVzb3VyY2VzLndpemFyZHMuY29tL21hZ2l','1','LIBRARY');
+
+/*!40000 ALTER TABLE `cards_in_game` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Export von Tabelle chat
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `chat`;
+
+CREATE TABLE `chat` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `player_name` varchar(255) DEFAULT NULL,
+  `chat_msg` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `chat` WRITE;
+/*!40000 ALTER TABLE `chat` DISABLE KEYS */;
+
+INSERT INTO `chat` (`id`, `player_name`, `chat_msg`)
+VALUES
+	(9,'pete','testor'),
+	(10,'pete','what'),
+	(11,'pete','aha'),
+	(12,'pete','sda'),
+	(13,'pete','sdaddd'),
+	(14,'pete','sdaddd'),
+	(15,'pete','sdaddd'),
+	(16,'pete','sdaddd'),
+	(17,'pete','sdaddd'),
+	(18,'pete','sdaddd'),
+	(19,'pete','sdaddd'),
+	(20,'pete','sdaddd'),
+	(21,'pete','sdaddda'),
+	(22,'pete','fgdfgf'),
+	(23,'pete','fgdfgf'),
+	(24,'pete','fgdfgf'),
+	(25,'pete','fgdfgf'),
+	(26,'pete','fgdfgf'),
+	(27,'pete','fgdfgf'),
+	(28,'pete','fgdfgf'),
+	(29,'pete','fgdfgf'),
+	(30,'pete','fgdfgf'),
+	(31,'pete','fgdfgf'),
+	(32,'pete','fgdfgf'),
+	(33,'pete','fgdfgf'),
+	(34,'pete','fgdfgf'),
+	(35,'pete','fgdfgf'),
+	(36,'pete','fgdfgf'),
+	(37,'pete','fgdfgf'),
+	(38,'pete','dddd'),
+	(39,'pete','dddd'),
+	(40,'pete','dddd'),
+	(41,'pete','dddd'),
+	(42,'pete','dddd'),
+	(43,'pete','dddd'),
+	(44,'pete','dddd'),
+	(45,'pete','dddd'),
+	(46,'pete','wdw'),
+	(47,'pete','wdw'),
+	(48,'pete','wdw'),
+	(49,'pete','wdw'),
+	(50,'pete','erw'),
+	(51,'pete','erw'),
+	(52,'pete','erw'),
+	(53,'pete','erw'),
+	(54,'pete','erw'),
+	(55,'pete','erw'),
+	(56,'pete','erw'),
+	(57,'pete','erw'),
+	(58,'pete','erwg'),
+	(59,'pete','fefwef'),
+	(60,'pete','fefwefffffffffffff'),
+	(61,'pete','fefwefffffffffffff'),
+	(62,'pete','rwer'),
+	(63,'pete','d'),
+	(64,'pete','dffff'),
+	(65,'pete','dfffffff'),
+	(66,'pete','d'),
+	(67,'bieti','ddd'),
+	(68,'bieti','ddddddd'),
+	(69,'bieti','hi dude'),
+	(70,'bieti','hi dude'),
+	(71,'bieti','hi dude'),
+	(72,'bieti','hi dude'),
+	(73,'bieti','hi dude'),
+	(74,'pete','hi'),
+	(75,'pete','test'),
+	(76,'pete','test cool'),
+	(77,'pete','okay'),
+	(78,'pete','schein zu funktionieren'),
+	(79,'pete','schein zu funktionieren'),
+	(80,'bieti','e'),
+	(81,'bieti','test'),
+	(82,'bieti','tests'),
+	(83,'bieti','testsf'),
+	(84,'bieti','testsf'),
+	(85,'bieti','testsf'),
+	(86,'bieti','testsf'),
+	(87,'bieti','testsff'),
+	(88,'bieti','testsfffffff'),
+	(89,'bieti','testsfffffff'),
+	(90,'bieti','testsfffffff'),
+	(91,'bieti','testsfffffff'),
+	(92,'bieti','w'),
+	(93,'bieti','wewewew'),
+	(94,'bieti','d'),
+	(95,'bieti','df'),
+	(96,'bieti','test'),
+	(97,'bieti','tests'),
+	(98,'bieti','w'),
+	(99,'bieti','wewewe'),
+	(100,'bieti','wewewe'),
+	(101,'bieti','wewewe'),
+	(102,'bieti','wewewe1'),
+	(103,'bieti','wewewe12'),
+	(104,'bieti','wewewe123'),
+	(105,'bieti','wewewe12332232'),
+	(106,'pete','schein zu funktiondieren'),
+	(107,'pete','schein zu funktiondieren'),
+	(108,'pete','schein zu dddddd'),
+	(109,'pete','schein zu dddddd'),
+	(110,'pete','schein zu dddddd'),
+	(111,'pete','schein zu dddddd'),
+	(112,'pete','s'),
+	(113,'pete','sds'),
+	(114,'bieti','d'),
+	(115,'bieti','dadasd'),
+	(116,'bieti','s'),
+	(117,'bieti','sh'),
+	(118,'bieti','d'),
+	(119,'bieti','ds'),
+	(120,'bieti','dsfds'),
+	(121,'bieti','dsfdsg'),
+	(122,'bieti','dsfdsgd'),
+	(123,'bieti','dsfdsgd'),
+	(124,'bieti','dsfdsgd'),
+	(125,'bieti','dsfdsgd'),
+	(126,'bieti','dsfdsgd'),
+	(127,'bieti','dsfdsgd'),
+	(128,'pete','www'),
+	(129,'pete','www'),
+	(130,'pete','www'),
+	(131,'pete','www'),
+	(132,'pete','www'),
+	(133,'pete','www'),
+	(134,'bieti','test'),
+	(135,'bieti','test'),
+	(136,'bieti','test'),
+	(137,'bieti','test'),
+	(138,'bieti','test'),
+	(139,'pete','test'),
+	(140,'pete','testw'),
+	(141,'bieti','ehat'),
+	(142,'pete','shit');
+
+/*!40000 ALTER TABLE `chat` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Export von Tabelle deck_contents
@@ -13454,7 +13619,11 @@ VALUES
 	(77,4,'52824327124fe','b990574b212111be3e5f84c8e08b15f1'),
 	(78,2,'52824327124fe','e901c8555eeaec3a189f4eba8f12db5f'),
 	(79,2,'52824327124fe','1a062f31ea556ad5c7553e1acf0f8545'),
-	(80,2,'52824327124fe','2b2170289751ff315b40c69ad288ab22');
+	(80,2,'52824327124fe','2b2170289751ff315b40c69ad288ab22'),
+	(81,4,'152824fg7124fe','b990574b212111be3e5f84c8e08b15f1'),
+	(82,4,'152824fg7124fe','859ce164b8473d275e8bb390e46d88a0'),
+	(83,4,'152824fg7124fe','a382ab300b2de8a79fb58ab11c82d76d'),
+	(84,4,'152824fg7124fe','e6bafffbd99de7de6cceb1d187f724be');
 
 /*!40000 ALTER TABLE `deck_contents` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -13482,7 +13651,8 @@ LOCK TABLES `decks` WRITE;
 
 INSERT INTO `decks` (`deck_id`, `deck_name`, `modern_legal`, `legacy_legal`, `vintage_legal`, `player_id`, `standard_legal`)
 VALUES
-	('52824327124fe','The Gate',1,1,1,1,1);
+	('152824fg7124fe','MUD',0,1,1,2,0),
+	('52824327124fe','The Gate',0,1,1,1,0);
 
 /*!40000 ALTER TABLE `decks` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -13501,6 +13671,28 @@ CREATE TABLE `game` (
   PRIMARY KEY (`game_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `game` WRITE;
+/*!40000 ALTER TABLE `game` DISABLE KEYS */;
+
+INSERT INTO `game` (`game_id`, `player_id_1`, `player_id_2`, `game_state`)
+VALUES
+	('52825b7eee0e4','2','1','p2_start'),
+	('52825c823619c','2','1','p1_start'),
+	('52825cbd3960b','2','1','p2_start'),
+	('52825d23a1bd1','2','1','p1_start'),
+	('52825d364df1e','2','1','p1_start'),
+	('52825d3b0069d','2','1','p2_start'),
+	('52825d3d4191d','2','1','p1_start'),
+	('52825d40aa388','2','1','p1_start'),
+	('5283400a659bf','2','1','p1_start'),
+	('528340aa49c9b','2','1','p1_start'),
+	('5283417e1a8fe','2','1','p2_start'),
+	('528341d4814a4','2','1','p2_start'),
+	('5283427796f5a','2','1','p1_start'),
+	('528343c81473a','2','1','p2_start');
+
+/*!40000 ALTER TABLE `game` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Export von Tabelle lounge
@@ -13514,34 +13706,17 @@ CREATE TABLE `lounge` (
   `player_state` varchar(255) DEFAULT NULL,
   `player_msg` varchar(255) DEFAULT NULL,
   `player_nick` varchar(255) DEFAULT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `lounge` WRITE;
 /*!40000 ALTER TABLE `lounge` DISABLE KEYS */;
 
-INSERT INTO `lounge` (`id`, `player_id`, `player_state`, `player_msg`, `player_nick`)
+INSERT INTO `lounge` (`id`, `player_id`, `player_state`, `player_msg`, `player_nick`, `timestamp`)
 VALUES
-	(10,'2','active',NULL,'pete'),
-	(11,'1','active',NULL,'bieti'),
-	(12,'2','active',NULL,'pete'),
-	(13,'1','active',NULL,'bieti'),
-	(14,'2','active',NULL,'pete'),
-	(15,'1','active',NULL,'bieti'),
-	(16,'2','active',NULL,'pete'),
-	(17,'1','active',NULL,'bieti'),
-	(18,'2','active',NULL,'pete'),
-	(19,'1','active',NULL,'bieti'),
-	(20,'2','active',NULL,'pete'),
-	(21,'1','active',NULL,'bieti'),
-	(22,'2','active',NULL,'pete'),
-	(23,'1','active',NULL,'bieti'),
-	(24,'2','active',NULL,'pete'),
-	(25,'1','active',NULL,'bieti'),
-	(26,'2','active',NULL,'pete'),
-	(27,'1','active',NULL,'bieti'),
-	(28,'2','active',NULL,'pete'),
-	(29,'1','active',NULL,'bieti');
+	(328,'1','active',NULL,'bieti','2013-11-13 16:40:17'),
+	(329,'2','active',NULL,'pete','2013-11-13 16:40:17');
 
 /*!40000 ALTER TABLE `lounge` ENABLE KEYS */;
 UNLOCK TABLES;

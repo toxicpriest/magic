@@ -13,7 +13,7 @@ if ($action == "add") {
 if ($action == "userlist") {
     $result2 = mysql_query("SELECT * FROM lounge;", $db->db);
     while ($row = mysql_fetch_object($result2)) {
-        $users .= '<div>'.$row->player_nick . ' :' . $row->player_state . '<br /></div>';
+        $users .= '<div class="user_row" id="'.$row->player_id.'"  onclick="openDialog(\'Action\',\'user_menu\',\''.$row->player_id.'\');">'.$row->player_nick . ' :' . $row->player_state . '<br /></div>';
     }
     echo $users;
 }
