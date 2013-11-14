@@ -247,3 +247,10 @@ span.tdinfo_lower {
     background: #777;
     display:none;
 }
+.myname{
+    color: #090;
+}
+.enemy{
+color: #555;
+cursor:pointer;
+}

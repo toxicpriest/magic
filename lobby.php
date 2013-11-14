@@ -13,6 +13,7 @@ if (isset($_POST['nick']) && isset($_POST['password'])) {
     if ($player->playerName) {
         $_SESSION['nick'] = $nick;
         $_SESSION['password'] = $password;
+        $_SESSION['id']= $player->playerId;
     }
 }
 elseif (isset($_SESSION['nick']) && isset($_SESSION['password'])) {

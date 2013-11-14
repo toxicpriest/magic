@@ -1,26 +1,78 @@
-function openDialog(msg,type,playerID,gameid) {
-    var innerHtml=getInnerHtml(msg,type);
+function openDialog(msg, type, enemyID, playerID, gameid,actionID) {
+    var innerHtml = getInnerHtml(msg, type, enemyID, playerID,actionID);
     $("#dialog").html(innerHtml);
-    $("#dialog").css("display","block");
+    $("#dialog").css("display", "block");
 }
-function getInnerHtml(msg,type,playerID){
- var InnerHtml= "<span id='question'>"+msg+"</span>";
-    if(type == "yes_no"){
-        InnerHtml+="<button onclick='dialogAction(\"yes\");'>Yes</button><button onclick='dialogAction(\"no\");'>No</button>";
+function getInnerHtml(msg, type, enemyID, playerID,actionID) {
+    var InnerHtml = "<span id='question'>" + msg + "</span>";
+    if (type == "answerInvite") {
+            InnerHtml += "<button onclick='dialogAction(\""+type+"\","+playerID+","+enemyID+","+actionID+",\"yes\");'>Yes</button><button onclick='dialogAction(\""+type+"\","+playerID+","+enemyID+","+actionID+",\"no\");'>No</button>";
+        }
+    if (type == "yes_no") {
+        InnerHtml += "<button onclick='dialogAction(\"yes\");'>Yes</button><button onclick='dialogAction(\"no\");'>No</button>";
     }
-    else if(type == "user_menu"){
-        InnerHtml+="<button onclick='dialogAction(\"invite\",playerID);'>Invite</button><button onclick='dialogAction(\"pn\");'>Msg</button><button onclick='dialogAction(\"no\");'>Close</button>";
+    else if (type == "user_menu") {
+        InnerHtml += "<button onclick='dialogAction(\"invite\","+playerID+","+enemyID+");'>Invite</button><button onclick='dialogAction(\"pn\");'>Msg</button><button onclick='dialogAction(\"no\");'>Close</button>";
     }
     return InnerHtml;
 }
-function dialogAction(action,playerID){
-    $("#dialog").css("display","none");
-    if(action =="invite"){
-       invitePlayer(playerID);
+function dialogAction(action, playerID, enemyID,actionID,answer) {
+    $("#dialog").css("display", "none");
+    if (action == "invite") {
+        invitePlayer(playerID,enemyID);
+    }
+    if (action == "answerInvite") {
+        answerPlayer(playerID,enemyID,actionID,answer);
     }
 }
-function invitePlayer(playerID){
+function checkInvites() {
+    $.ajax({
+        type: "POST",
+        url: "db_handler.php",
+        data: {  action: "check_invites"}
 
+    })
+        .done(function (returnValue) {
+            if(returnValue!="" && returnValue!=null){
+                var obj = $.parseJSON(returnValue);
+                openDialog(obj.msg,"answerInvite",obj.enemyID,obj.playerID,'',obj.actionID);
+            }
+        });
+}
+setInterval("checkInvites('reload')", 3500);
+function checkInviteState() {
+    $.ajax({
+        type: "POST",
+        url: "db_handler.php",
+        data: {  action: "check_invite_state"}
+
+    })
+        .done(function (returnValue) {
+            if(returnValue!="" && returnValue!=null){
+                alert(returnValue);
+            }
+        });
+}
+setInterval("checkInviteState('reload')", 3500);
+function invitePlayer(playerID,enemyID) {
+    $.ajax({
+        type: "POST",
+        url: "db_handler.php",
+        data: {  action: "invite",playerID:playerID,enemyID:enemyID}
+    })
+        .done(function () {
+            alert("invite sent");
+        });
+}
+function answerPlayer(playerID,enemyID,actionID,answer) {
+    $.ajax({
+        type: "POST",
+        url: "db_handler.php",
+        data: {  action: "answerPlayer",playerID:playerID,enemyID:enemyID,actionID:actionID,answer:answer}
+    })
+        .done(function () {
+            alert("answered");
+        });
 }
 function loadUserList() {
     $.ajax({
