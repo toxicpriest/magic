@@ -1,5 +1,5 @@
+<script language="JavaScript" src="/src/js/lobby.js"></script>
 <?php
-
 include_once "import.php";
 include_once "deck.php";
 include_once "card.php";
@@ -10,8 +10,6 @@ include_once "db.php";
 include_once "deck.php";
 include_once "game.php";
 session_start();
-//$import = new import();
-//$import->doImport();
 
 $player = new player();
 /*$player2 = new player();

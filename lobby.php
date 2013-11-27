@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: mbi
- * Date: 13.11.13
- * Time: 10:32
- * To change this template use File | Settings | File Templates.
- */
 if (isset($_POST['nick']) && isset($_POST['password'])) {
     $nick = $_POST['nick'];
     $password = $_POST['password'];
@@ -13,7 +6,7 @@ if (isset($_POST['nick']) && isset($_POST['password'])) {
     if ($player->playerName) {
         $_SESSION['nick'] = $nick;
         $_SESSION['password'] = $password;
-        $_SESSION['id']= $player->playerId;
+        $_SESSION['id'] = $player->playerId;
     }
 }
 elseif (isset($_SESSION['nick']) && isset($_SESSION['password'])) {
@@ -33,8 +26,10 @@ elseif (isset($_SESSION['nick']) && isset($_SESSION['password'])) {
                     <input type="submit" name="login" value="Login">
                 </form>
             </div>
-        <?php }
-        else { ?>
+        <?php
+        }
+        else {
+            ?>
             <table border="0">
                 <tr>
                     <th>
